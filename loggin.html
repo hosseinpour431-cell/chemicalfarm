@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chemical Farm | ورود</title>
+  <meta name="description" content="Chemical Farm — Protected Access" />
+
+  <style>
+    :root{
+      --bg1:#07131a;
+      --bg2:#0b1f2b;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.12);
+      --stroke: rgba(255,255,255,.14);
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --ok: #3cffb0;
+      --warn:#ff5a7a;
+      --brand1:#00d4ff;
+      --brand2:#6a5cff;
+      --shadow: 0 24px 80px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--txt);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Vazirmatn", "IRANSans", sans-serif;
+      background:
+        radial-gradient(1200px 700px at 15% 15%, rgba(0,212,255,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 20%, rgba(106,92,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 70% 90%, rgba(60,255,176,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+
+    /* floating blobs */
+    .blob{
+      position:absolute;
+      filter: blur(35px);
+      opacity:.9;
+      border-radius: 999px;
+      mix-blend-mode: screen;
+      animation: floaty 10s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .b1{width:420px;height:420px; left:-120px; top:30px; background:rgba(0,212,255,.28)}
+    .b2{width:520px;height:520px; right:-160px; top:-120px; background:rgba(106,92,255,.24); animation-delay: -2s}
+    .b3{width:460px;height:460px; left:30%; bottom:-220px; background:rgba(60,255,176,.18); animation-delay:-4s}
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0) translateX(0) scale(1) }
+      50%{ transform: translateY(-18px) translateX(12px) scale(1.03) }
+    }
+
+    .wrap{
+      position:relative;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding: 24px;
+    }
+
+    .card{
+      width:min(980px, 100%);
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    @media (max-width: 860px){
+      .card{ grid-template-columns: 1fr; padding: 16px; }
+    }
+
+    .left{
+      border-radius: calc(var(--radius) - 6px);
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(140deg, rgba(0,212,255,.10), rgba(106,92,255,.10));
+      position:relative;
+      overflow:hidden;
+      min-height: 260px;
+    }
+
+    .mark{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .logo{
+      width: 42px; height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow: 0 10px 30px rgba(0,212,255,.18);
+      position:relative;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset: 11px 12px 12px 11px;
+      border-radius: 10px;
+      border:1px solid rgba(255,255,255,.45);
+      opacity:.65;
+    }
+
+    .title{
+      font-size: 20px;
+      margin:0;
+      letter-spacing:.2px;
+      line-height: 1.2;
+    }
+    .subtitle{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    .badge-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .badge{
+      font-size: 12px;
+      color: rgba(255,255,255,.85);
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+    }
+
+    .hint{
+      margin-top: 16px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.14);
+      color: rgba(255,255,255,.75);
+      font-size: 12.5px;
+      line-height: 1.75;
+    }
+
+    .right{
+      border-radius: calc(var(--radius) - 6px);
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+
+    .form-title{
+      margin: 2px 0 6px;
+      font-size: 18px;
+    }
+    .form-sub{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    label{
+      display:block;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.78);
+      margin: 10px 0 8px;
+    }
+
+    .field{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      transition: border-color .2s ease, transform .15s ease;
+    }
+    .field:focus-within{
+      border-color: rgba(0,212,255,.45);
+      transform: translateY(-1px);
+    }
+
+    .icon{
+      width: 28px; height: 28px;
+      border-radius: 10px;
+      display:grid; place-items:center;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      flex: 0 0 auto;
+    }
+    .icon svg{ width: 16px; height: 16px; opacity:.85 }
+
+    input{
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--txt);
+      font-size: 14px;
+      padding: 2px 0;
+      direction:ltr; /* برای پسورد لاتین */
+    }
+    input::placeholder{ color: rgba(255,255,255,.45) }
+
+    .row{
+      margin-top: 12px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    .toggle{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      user-select:none;
+      cursor:pointer;
+      color: rgba(255,255,255,.78);
+      font-size: 12.5px;
+    }
+    .switch{
+      width: 44px; height: 26px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      position:relative;
+      transition: .2s ease;
+    }
+    .switch::after{
+      content:"";
+      width: 20px; height: 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.75);
+      position:absolute;
+      top: 2px; right: 2px;
+      transition: .2s ease;
+    }
+    .toggle[data-on="true"] .switch{
+      background: rgba(60,255,176,.12);
+      border-color: rgba(60,255,176,.30);
+    }
+    .toggle[data-on="true"] .switch::after{
+      right: 22px;
+      background: rgba(60,255,176,.92);
+    }
+
+    .btn{
+      width:100%;
+      margin-top: 14px;
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      color: #07131a;
+      font-weight: 700;
+      font-size: 14px;
+      background: linear-gradient(90deg, var(--brand1), var(--brand2));
+      box-shadow: 0 14px 40px rgba(0,212,255,.18);
+      transition: transform .15s ease, opacity .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); opacity:.95 }
+    .btn:active{ transform: translateY(0px); opacity:.9 }
+    .btn[disabled]{ opacity:.55; cursor:not-allowed; transform:none }
+
+    .msg{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      font-size: 12.5px;
+      line-height: 1.7;
+      display:none;
+    }
+    .msg.err{ border-color: rgba(255,90,122,.35); color: rgba(255,200,210,.95) }
+    .msg.ok{ border-color: rgba(60,255,176,.35); color: rgba(190,255,230,.95) }
+
+    .foot{
+      margin-top: 14px;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .link{
+      color: rgba(255,255,255,.8);
+      text-decoration:none;
+      border-bottom: 1px dashed rgba(255,255,255,.25);
+    }
+    .link:hover{ border-bottom-color: rgba(255,255,255,.55) }
+  </style>
+</head>
+
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="wrap">
+    <div class="card" role="main" aria-label="Login page">
+
+      <!-- Left panel -->
+      <section class="left">
+        <div class="mark">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1 class="title">Chemical Farm</h1>
+            <p class="subtitle">دسترسی محافظت‌شده به پایگاه داده مواد شیمیایی </p>
+          </div>
+        </div>
+
+        <div class="badge-row">
+          <span class="badge">Oil, Gas & Petrochemicals </span>
+          <span class="badge">Global Data</span>
+          <span class="badge">Real industrial plants</span>
+	<span class="badge">Protected Preview</span>
+        </div>
+
+        <div class="hint">
+          <b>راهنما:</b>
+          لطفاً رمز عبور را وارد کنید. پس از ورود موفق، دسترسی شما روی همین مرورگر ذخیره می‌شود و می‌توانید صفحات داخلی را مشاهده کنید.
+          
+        </div>
+      </section>
+
+      <!-- Right panel -->
+      <section class="right">
+        <h2 class="form-title">ورود به سایت</h2>
+        <p class="form-sub">برای مشاهده محتوا، رمز عبور را وارد کنید.</p>
+
+        <form id="loginForm" autocomplete="off">
+          <label for="pass">Password</label>
+
+          <div class="field">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 10V8a5 5 0 0 1 10 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 10h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 14v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <input id="pass" type="password" placeholder="Password" inputmode="text" />
+          </div>
+
+          <div class="row">
+            <div class="toggle" id="toggleShow" data-on="false" tabindex="0" role="switch" aria-checked="false">
+              <div class="switch" aria-hidden="true"></div>
+              <span>نمایش رمز</span>
+            </div>
+
+            <a class="link" href="index.html" onclick="return false;" title="Access requires login">ورود مستقیم غیرفعال است</a>
+          </div>
+
+          <button class="btn" id="btn" type="submit">ورود</button>
+
+          <div class="msg err" id="err">رمز اشتباه است. دوباره تلاش کنید.</div>
+          <div class="msg ok" id="ok">ورود موفق! در حال انتقال…</div>
+
+          <div class="foot">
+            <span>© Chemical Farm</span>
+            <span style="opacity:.75">Secure Preview</span>
+          </div>
+        </form>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // اگر قبلاً لاگین کرده، مستقیم بفرستش داخل
+    if (localStorage.getItem("chemicalfarm_auth") === "true") {
+      window.location.replace("index.html");
+    }
+
+    const CORRECT = "Oil&Gas625";
+    const KEY = "chemicalfarm_auth";
+
+    const form = document.getElementById("loginForm");
+    const pass = document.getElementById("pass");
+    const err = document.getElementById("err");
+    const ok = document.getElementById("ok");
+    const btn = document.getElementById("btn");
+
+    function show(el, yes){
+      el.style.display = yes ? "block" : "none";
+    }
+
+    // Show/Hide password toggle
+    const toggle = document.getElementById("toggleShow");
+    function setToggle(on){
+      toggle.dataset.on = on ? "true" : "false";
+      toggle.setAttribute("aria-checked", on ? "true" : "false");
+      pass.type = on ? "text" : "password";
+    }
+    toggle.addEventListener("click", () => setToggle(toggle.dataset.on !== "true"));
+    toggle.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        setToggle(toggle.dataset.on !== "true");
+      }
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      show(err, false);
+      show(ok, false);
+
+      const value = (pass.value || "").trim();
+
+      if (!value) {
+        err.textContent = "لطفاً رمز را وارد کنید.";
+        show(err, true);
+        pass.focus();
+        return;
+      }
+
+      btn.disabled = true;
+
+      if (value === CORRECT) {
+        localStorage.setItem(KEY, "true");
+        show(ok, true);
+
+        // کمی تاخیر برای UX
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 650);
+      } else {
+        localStorage.removeItem(KEY);
+        err.textContent = "رمز اشتباه است. دوباره تلاش کنید.";
+        show(err, true);
+        btn.disabled = false;
+        pass.select();
+      }
+    });
+  </script>
+</body>
+</html>
+

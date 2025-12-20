@@ -1,0 +1,2863 @@
+<!doctype html>
+<html dir="rtl" lang="fa" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n-en="Chemical Farm | 1-Octene" data-i18n-fa="کمیکال فارم | 1-اکتن">Chemical Farm | Acetaldehyde</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600&amp;family=Vazirmatn:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+        :root {
+            --primary: #0d9488;
+            --primary-light: #14b8a6;
+            --secondary: #2563eb;
+            --danger: #fb7185;
+            --warning: #fbbf24;
+            --success: #22c55e;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: rgba(15,23,42,0.10);
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glow-primary: 0 0 22px rgba(13, 148, 136, 0.22);
+            --glow-secondary: 0 0 22px rgba(37, 99, 235, 0.22);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Vazirmatn','Inter', sans-serif;
+            background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        header {
+            background: linear-gradient(120deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 35px 0;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow), var(--glow-primary);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform: translateY(0);
+            animation: headerFloat 6s ease-in-out infinite;
+        }
+        @keyframes headerFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            z-index: -1;
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo i {
+            font-size: 2rem;
+            background: rgba(255,255,255,0.15);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+        }
+        .logo h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+        .search-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+        }
+        #search-input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        #search-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        #search-input:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.1), var(--glow-primary);
+        }
+        
+        /* Header actions (Home + Language) */
+        .header-actions{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        .hdr-btn{
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            padding: 12px 16px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.10);
+            color: white;
+            font-size: 0.98rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        .hdr-btn i{ opacity: .9; }
+        .hdr-btn:hover{
+            transform: translateY(-2px);
+            box-shadow: var(--card-hover), var(--glow-secondary);
+            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.14);
+        }
+        .hdr-btn:active{ transform: translateY(0); }
+        .hdr-btn.lang{
+            border: 1px solid rgba(255,255,255,0.28);
+        }
+        #langLabel{
+            font-family: 'Space Grotesk','Vazirmatn','Inter',sans-serif;
+            font-weight: 700;
+            letter-spacing: .6px;
+        }
+
+        /* Language toggling */
+        html[lang="fa"] body{ direction: rtl; }
+        html[lang="fa"] .container{ direction: rtl; }
+        html[lang="fa"] .product-name,
+        html[lang="fa"] .section-title,
+        html[lang="fa"] .market-title,
+        html[lang="fa"] .companies-title,
+        html[lang="fa"] .applications-title,
+        html[lang="fa"] .feedstock-title,
+        html[lang="fa"] .molecular-title{
+            font-family:'Vazirmatn','Space Grotesk','Inter',sans-serif;
+        }
+.product-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .product-type {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            align-self: flex-start;
+            transition: var(--transition);
+            box-shadow: var(--glow-primary);
+        }
+        .product-type:hover {
+            transform: scale(1.03);
+            box-shadow: var(--glow-primary), 0 5px 15px rgba(37, 99, 235, 0.15);
+        }
+        .product-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .product-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.2rem;
+            color: #475569;
+            margin-top: 5px;
+        }
+        .product-stats {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow), var(--glow-primary);
+            transition: var(--transition);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: floatUp 0.6s ease-out;
+        }
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px;
+            border-radius: 16px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        .stat-value::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .stat-card:hover .stat-value::after {
+            width: 100%;
+        }
+        .stat-label {
+            font-size: 0.95rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
+        }
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 2;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .section-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .section-card:hover::before {
+            transform: scaleX(1);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .section-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .properties-header .section-icon {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        .hazard-header .section-icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        .health-header .section-icon {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        .industry-header .section-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .license-header .section-icon {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .section-card:hover .section-title::after {
+            width: 70%;
+        }
+        .property-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .property-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            position: relative;
+            padding-left: 10px;
+            transition: var(--transition);
+        }
+        .property-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gray);
+            opacity: 0.5;
+        }
+        .property-item:hover {
+            padding-left: 15px;
+        }
+        .property-item:hover::before {
+            background: var(--primary);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.2);
+        }
+        .property-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .property-label i {
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
+        .property-value {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+            position: relative;
+            display: inline-block;
+        }
+        .property-value::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .property-item:hover .property-value::after {
+            width: 100%;
+        }
+        .hazard-section, .health-section {
+            padding: 20px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hazard-section::before, .health-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            opacity: 0.7;
+        }
+        .hazard-section {
+            background: rgba(254, 226, 226, 0.4);
+            border: 1px solid #fecaca;
+        }
+        .hazard-section::before {
+            background: linear-gradient(to bottom, #ef4444, #dc2626);
+        }
+        .hazard-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #b91c1c;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .hazard-value {
+            color: #991b1b;
+            line-height: 1.6;
+        }
+        .health-section {
+            background: rgba(254, 249, 196, 0.4);
+            border: 1px solid #fde68a;
+        }
+        .health-section::before {
+            background: linear-gradient(to bottom, #f59e0b, #d97706);
+        }
+        .health-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #a16207;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .health-value {
+            color: #854d0e;
+            line-height: 1.6;
+        }
+        .industry-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .industry-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .industry-tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .industry-tag::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            z-index: -1;
+        }
+        .industry-tag:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: var(--success);
+            color: white;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+        .industry-tag:hover::after {
+            animation: shine 1s;
+        }
+        @keyframes shine {
+            to { transform: translateX(100%); }
+        }
+        .feedstock-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .feedstock-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+        }
+        .feedstock-section:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-secondary);
+        }
+        .feedstock-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .feedstock-header .section-icon {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+        }
+        .feedstock-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .raw-materials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .material-tag {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .material-tag::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+        .material-tag:hover {
+            transform: scale(1.05);
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+        .material-tag:hover::after {
+            transform: translateX(0);
+        }
+        .market-insights {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .market-insights::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .market-insights:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .market-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .market-header .section-icon {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        .market-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .market-description {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .demand-chart-container {
+            height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+            background: #f8fafc;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        .demand-chart-container:hover {
+            box-shadow: var(--card-hover), var(--glow-primary);
+            transform: scale(1.01);
+        }
+        .region-demand {
+            margin-top: 25px;
+        }
+        .region-item {
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+            background: white;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .region-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .region-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-hover);
+            z-index: 2;
+        }
+        .region-item:hover::before {
+            opacity: 1;
+        }
+        .region-item:nth-child(1) {
+            border-left-color: #2563eb;
+        }
+        .region-item:nth-child(1)::before {
+            background: linear-gradient(to bottom, #2563eb, #3b82f6);
+        }
+        .region-item:nth-child(2) {
+            border-left-color: #8b5cf6;
+        }
+        .region-item:nth-child(2)::before {
+            background: linear-gradient(to bottom, #8b5cf6, #a78bfa);
+        }
+        .region-item:nth-child(3) {
+            border-left-color: #10b981;
+        }
+        .region-item:nth-child(3)::before {
+            background: linear-gradient(to bottom, #10b981, #34d399);
+        }
+        .region-item:nth-child(4) {
+            border-left-color: #f59e0b;
+        }
+        .region-item:nth-child(4)::before {
+            background: linear-gradient(to bottom, #f59e0b, #fbbf24);
+        }
+        .region-title {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        .region-percentage {
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+            display: inline-block;
+        }
+        .region-percentage::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: var(--transition);
+        }
+        .region-item:hover .region-percentage::after {
+            width: 100%;
+        }
+        .region-description {
+            color: #64748b;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .region-progress {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .region-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+        .region-progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+        .key-companies {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .key-commodity {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .key-commodity:hover, .key-companies:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .companies-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .companies-header .section-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .companies-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .company-list {
+            list-style: none;
+        }
+        .company-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .company-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--success);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+            z-index: 1;
+        }
+        .company-item:hover::before {
+            transform: scaleX(1);
+        }
+        .company-item:last-child {
+            border-bottom: none;
+        }
+        .company-item:hover {
+            transform: translateX(5px);
+            background: rgba(16, 185, 129, 0.05);
+        }
+        .company-flag {
+            width: 28px;
+            height: 20px;
+            border-radius: 3px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.7rem;
+            color: #64748b;
+            transition: var(--transition);
+        }
+        .company-item:hover .company-flag {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 2px var(--success);
+        }
+        .company-name {
+            font-weight: 600;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        .company-name::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--success);
+            transition: var(--transition);
+        }
+        .company-item:hover .company-name::after {
+            width: 100%;
+        }
+        .company-country {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .molecular-visualization {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .molecular-visualization::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--danger), #f87171);
+        }
+        .molecular-visualization:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .molecular-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .molecular-header .section-icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        .molecular-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .molecular-diagram {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        .molecular-diagram:hover {
+            box-shadow: var(--card-hover);
+        }
+        #molecular-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .molecular-info {
+            display: flex;
+            justify-content: space-around;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 0.9rem;
+        }
+        .molecular-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .color-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .molecular-red {
+            background-color: #ef4444;
+        }
+        .molecular-blue {
+            background-color: #1e40af;
+        }
+        .molecular-gray {
+            background-color: #64748b;
+        }
+        .safety-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-top: 15px;
+            align-self: flex-start;
+            animation: pulseDanger 2s infinite;
+        }
+        @keyframes pulseDanger {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.2); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+        .footer-note {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        /* Production Process Specific Styles */
+        .process-stages {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stage {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px;
+            border-left: 3px solid var(--primary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .stage::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .stage:hover {
+            background: #edf2ff;
+            transform: translateX(5px);
+        }
+        .stage:hover::before {
+            animation: shine 1.5s;
+        }
+        @keyframes shine {
+            to { transform: translateX(100%); }
+        }
+        .stage-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .stage:hover .stage-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+        }
+        .stage-title {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+            position: relative;
+            display: inline-block;
+        }
+        .stage-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .stage:hover .stage-title::after {
+            width: 100%;
+        }
+        .stage-description {
+            color: #475569;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        .process-diagram {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 15px;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+        .diagram-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+        }
+        .plant-capacity {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .capacity-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px;
+            border-left: 3px solid var(--success);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .capacity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .capacity-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            background: #edf7f4;
+        }
+        .capacity-card:hover::before {
+            animation: shine 1.5s;
+        }
+        .capacity-title {
+            font-weight: 600;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .capacity-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .capacity-location {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .capacity-note {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+        .process-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+            padding-bottom: 8px;
+        }
+        .process-btn {
+            padding: 5px 12px;
+            border-radius: 18px;
+            background: #e2e8f0;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .process-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .process-btn:hover::after {
+            animation: shine 1s;
+        }
+        .process-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .process-info {
+            background: #f0f4ff;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            border-left: 3px solid var(--primary);
+        }
+        .process-highlight {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        /* Applications Section */
+        .applications-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .applications-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--success), #22c55e);
+        }
+        .applications-section:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .applications-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .applications-header .section-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .applications-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .application-chart {
+            height: 250px;
+            margin-top: 15px;
+            position: relative;
+        }
+        .application-chart::after {
+            content: '3D Interactive';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(0,0,0,0.1);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            backdrop-filter: blur(2px);
+        }
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .legend-item:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        .design-credit {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-top: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .design-credit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .credit-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .credit-icon {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        .credit-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        .credit-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .credit-details {
+            color: #475569;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #f8fafc;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .contact-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        .contact-item:hover::before {
+            animation: shine 1s;
+        }
+        .contact-item:hover i {
+            color: white;
+        }
+        /* License Providers Section */
+        .license-providers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .provider-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: var(--transition);
+            border-left: 3px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        .provider-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .provider-item:hover {
+            transform: translateX(5px);
+            background: #f1f5f9;
+        }
+        .provider-item:hover::before {
+            animation: shine 1.5s;
+        }
+        .provider-rank {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
+        }
+        .provider-item:hover .provider-rank {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+        .provider-info {
+            flex: 1;
+        }
+        .provider-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+            position: relative;
+            display: inline-block;
+        }
+        .provider-name::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        .provider-item:hover .provider-name::after {
+            width: 100%;
+        }
+        .provider-details {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .provider-licenses {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            align-self: flex-start;
+            transition: var(--transition);
+        }
+        .provider-item:hover .provider-licenses {
+            background: var(--secondary);
+            color: white;
+        }
+        /* 3D Chart Container */
+        .chart3d-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .chart3d-tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 100;
+            transform: translate(-50%, -100%);
+        }
+        .chart3d-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(0,0,0,0.8);
+        }
+        @media (max-width: 1100px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .product-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .product-header {
+                flex-direction: column;
+            }
+            .product-name {
+                font-size: 2rem;
+                text-align: center;
+            }
+            .product-stats {
+                grid-template-columns: 1fr;
+            }
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            .plant-capacity {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+
+/* =========================
+   Language fonts & direction
+   ========================= */
+html[lang="en"] body{
+    font-family: 'Inter','Space Grotesk', sans-serif;
+}
+html[lang="fa"] body{
+    font-family: 'Vazirmatn','Inter', sans-serif;
+}
+/* Better RTL/LTR support using logical properties where possible */
+.property-item{ padding-inline-start: 10px; padding-left: 0; }
+.property-item:hover{ padding-inline-start: 15px; }
+.property-item::before{ inset-inline-start: 0; left: auto; }
+.region-item{ border-inline-start: 4px solid; border-left: 0; }
+.region-item::before{ inset-inline-start: 0; left:auto; }
+.stage{ border-inline-start: 3px solid var(--primary); border-left: 0; }
+.capacity-card{ border-inline-start: 3px solid var(--success); border-left: 0; }
+.provider-item{ border-inline-start: 3px solid var(--secondary); border-left: 0; }
+.hazard-section::before, .health-section::before{ inset-inline-start: 0; left:auto; }
+
+/* =========================
+   Theme system (Light/Dark)
+   ========================= */
+html{
+    /* surfaces */
+    --surface: #ffffff;
+    --surface-2: #f8fafc;
+    --surface-3: rgba(255,255,255,0.70);
+    --text-1: #0f172a;
+    --text-2: #475569;
+    --text-3: #64748b;
+    --border: rgba(15,23,42,0.10);
+    --molecule-bg: #f8fafc;
+    color-scheme: light;
+}
+body{
+    background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
+    color: var(--text-1);
+}
+html[data-theme="dark"]{
+    /* High-contrast dark palette (readable on true-black displays) */
+    --surface: rgba(12,18,34,0.88);
+    --surface-2: rgba(17,26,46,0.78);
+    --surface-3: rgba(12,18,34,0.62);
+
+    /* Text */
+    --text-1: #eef2ff;   /* main text */
+    --text-2: #d6def7;   /* body/secondary text */
+    --text-3: #a7b4d8;   /* muted text */
+
+    /* Critical: many parts of the page use var(--dark) for text */
+    --dark: #eef2ff;
+    --light: #0b1020;
+
+    /* Borders / shadows */
+    --border: rgba(167,180,216,0.18);
+    --gray: rgba(167,180,216,0.18);
+    --card-shadow: 0 10px 18px -4px rgba(0, 0, 0, 0.55), 0 4px 10px -6px rgba(0, 0, 0, 0.45);
+    --card-hover: 0 22px 30px -10px rgba(0, 0, 0, 0.65), 0 10px 16px -10px rgba(0, 0, 0, 0.50);
+
+    /* 3D canvas background */
+    --molecule-bg: #0b1020;
+
+    color-scheme: dark;
+}
+html[data-theme="dark"] body{
+    background: radial-gradient(1200px 800px at 10% 10%, rgba(13,148,136,0.20), transparent 55%),
+                radial-gradient(1000px 700px at 90% 15%, rgba(37,99,235,0.18), transparent 55%),
+                radial-gradient(1000px 700px at 50% 110%, rgba(139,92,246,0.14), transparent 55%),
+                linear-gradient(180deg, #020617 0%, #0b1220 100%);
+    color: var(--text-1);
+}
+/* Card surfaces */
+html[data-theme="dark"] .product-stats,
+html[data-theme="dark"] .section-card,
+html[data-theme="dark"] .feedstock-section,
+html[data-theme="dark"] .market-insights,
+html[data-theme="dark"] .key-companies,
+html[data-theme="dark"] .key-commodity,
+html[data-theme="dark"] .molecular-visualization,
+html[data-theme="dark"] .applications-section,
+html[data-theme="dark"] .design-credit{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+}
+html[data-theme="dark"] .demand-chart-container,
+html[data-theme="dark"] .process-diagram,
+html[data-theme="dark"] .molecular-info,
+html[data-theme="dark"] .stage,
+html[data-theme="dark"] .capacity-card,
+html[data-theme="dark"] .provider-item,
+html[data-theme="dark"] .contact-item,
+html[data-theme="dark"] .region-item{
+    background: var(--surface-2);
+    border-color: var(--border);
+}
+html[data-theme="dark"] .section-header,
+html[data-theme="dark"] .feedstock-header,
+html[data-theme="dark"] .market-header,
+html[data-theme="dark"] .companies-header,
+html[data-theme="dark"] .molecular-header,
+html[data-theme="dark"] .applications-header{
+    border-bottom: 1px solid var(--border);
+}
+/* Text colors */
+html[data-theme="dark"] .product-subtitle,
+html[data-theme="dark"] .market-description,
+html[data-theme="dark"] .region-description,
+html[data-theme="dark"] .company-country,
+html[data-theme="dark"] .capacity-location,
+html[data-theme="dark"] .capacity-note,
+html[data-theme="dark"] .property-label,
+html[data-theme="dark"] .stat-label,
+html[data-theme="dark"] footer,
+html[data-theme="dark"] .footer-note{
+    color: var(--text-2) !important;
+}
+html[data-theme="dark"] .property-value,
+html[data-theme="dark"] .region-title,
+html[data-theme="dark"] .company-name,
+html[data-theme="dark"] .stage-title,
+html[data-theme="dark"] .capacity-value,
+html[data-theme="dark"] .provider-name{
+    color: var(--text-1) !important;
+}
+html[data-theme="dark"] .region-progress{ background: rgba(148,163,184,0.18); }
+html[data-theme="dark"] .region-item:hover{ background: rgba(148,163,184,0.08); }
+html[data-theme="dark"] .company-item:hover{ background: rgba(16,185,129,0.08); }
+
+/* Hazard blocks in dark */
+html[data-theme="dark"] .hazard-section{
+    background: rgba(127,29,29,0.25);
+    border-color: rgba(239,68,68,0.35);
+}
+html[data-theme="dark"] .health-section{
+    background: rgba(120,53,15,0.25);
+    border-color: rgba(245,158,11,0.35);
+}
+html[data-theme="dark"] .safety-badge{
+    background: rgba(239,68,68,0.18);
+    color: #fecaca;
+}
+
+/* Toggle button polish */
+.hdr-btn.theme i{ transition: transform .25s ease; }
+.hdr-btn.theme:hover i{ transform: rotate(-10deg) scale(1.05); }
+
+/* Responsive fix: product-header is grid (not flex) */
+@media (max-width: 768px){
+    .product-header{ grid-template-columns: 1fr; }
+    .safety-badge{ justify-self: start; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+
+/* =========================
+   Dark-mode readability overrides (inline styles + hard-coded colors)
+   ========================= */
+html[data-theme="dark"]{
+    /* Make sure plain text defaults are readable */
+    color: var(--text-1);
+}
+
+html[data-theme="dark"] body{
+    color: var(--text-1);
+}
+
+/* Override common hard-coded text colors used in inline styles */
+html[data-theme="dark"] [style*="color: #475569"],
+html[data-theme="dark"] [style*="color:#475569"]{ color: var(--text-2) !important; }
+
+html[data-theme="dark"] [style*="color: #64748b"],
+html[data-theme="dark"] [style*="color:#64748b"]{ color: var(--text-3) !important; }
+
+html[data-theme="dark"] [style*="color: #0f172a"],
+html[data-theme="dark"] [style*="color:#0f172a"],
+html[data-theme="dark"] [style*="color: var(--dark)"],
+html[data-theme="dark"] [style*="color:var(--dark)"]{ color: var(--text-1) !important; }
+
+/* Fix common light backgrounds used inline inside CAPEX cards */
+html[data-theme="dark"] [style*="background: #f8fafc"],
+html[data-theme="dark"] [style*="background:#f8fafc"]{
+    background: var(--surface-2) !important;
+    border-color: var(--border) !important;
+}
+html[data-theme="dark"] [style*="background: #fff7ed"],
+html[data-theme="dark"] [style*="background:#fff7ed"],
+html[data-theme="dark"] [style*="background: #fff7ed;"],
+html[data-theme="dark"] [style*="background:#fff7ed;"]{
+    background: rgba(249,115,22,0.12) !important;
+    border-color: rgba(249,115,22,0.28) !important;
+}
+
+/* Ensure link/text inside contact pills stays readable */
+html[data-theme="dark"] a{ color: var(--text-1); }
+html[data-theme="dark"] a:hover{ color: var(--text-1); }
+
+/* Keep small helper texts readable */
+html[data-theme="dark"] .credit-details,
+html[data-theme="dark"] .capacity-note,
+html[data-theme="dark"] .stage-description{ color: var(--text-2) !important; }
+
+
+
+/* === Fix: process-info box readability in Dark theme === */
+html[data-theme="dark"] .process-info{
+    background: rgba(37, 99, 235, 0.12) !important; /* soft indigo */
+    border: 1px solid rgba(167,180,216,0.22) !important;
+    color: var(--text-2) !important;
+}
+html[data-theme="dark"] .process-info .process-highlight{
+    color: #93c5fd !important; /* readable accent */
+}
+html[data-theme="dark"] .process-info i{
+    color: #93c5fd !important;
+}
+
+</style>
+
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-flask"></i>
+          <h1><span data-i18n-en="Chemical Farm" data-i18n-fa="Chemical Farm">Chemical Farm</span></h1>
+        </div>
+        <div class="header-actions">
+          <a class="hdr-btn home" href="index.html" title="Home">
+            <i class="fas fa-home"></i>
+            <span data-i18n-en="Home" data-i18n-fa="خانه">Home</span>
+          </a>
+          <button class="hdr-btn theme" id="themeToggle" title="Theme" type="button" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <span data-i18n-en="Theme" data-i18n-fa="تم">Theme</span>
+          </button>
+          <button class="hdr-btn lang" id="langToggle" title="Language" type="button">
+            <i class="fas fa-language"></i>
+            <span id="langLabel">EN</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="product-header">
+      <div class="product-info">
+        <div class="product-type">
+          <span data-i18n-en="Surfactant (Industrial / Restricted in some uses)"
+                data-i18n-fa="سورفکتانت (صنعتی / محدودیت در برخی کاربردها)">
+            Surfactant (Industrial / Restricted in some uses)
+          </span>
+        </div>
+        <h1 class="product-name">
+          <i class="fas fa-flask"></i>
+          <span data-i18n-en="Nonylphenol Ethoxylates (NPEO-9)"
+                data-i18n-fa="اتوکسیلات نونیل‌فنول (NPEO-9)">
+            Nonylphenol Ethoxylates (NPEO-9)
+          </span>
+        </h1>
+        <div class="product-subtitle">
+          <i class="fas fa-microscope"></i>
+          <span data-i18n-en="C15H24O(CH2CH2O)9H (typical) | CAS 9016-45-9"
+                data-i18n-fa="C15H24O(CH2CH2O)9H (تیپیک) | CAS 9016-45-9">
+            C15H24O(CH2CH2O)9H (typical) | CAS 9016-45-9
+          </span>
+        </div>
+      </div>
+
+      <div class="safety-badge">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span
+          data-i18n-en="Harmful (oral/skin) | Serious Eye Damage | Aquatic Toxicity | Regulatory Restrictions"
+          data-i18n-fa="زیان‌آور (خوراکی/پوستی) | آسیب جدی به چشم | سمیت آبزیان | محدودیت‌های مقرراتی">
+          Harmful (oral/skin) | Serious Eye Damage | Aquatic Toxicity | Regulatory Restrictions
+        </span>
+      </div>
+    </div>
+
+    <div class="product-stats">
+      <div class="stat-card">
+        <div class="stat-value">
+          <span data-i18n-en="0.21M" data-i18n-fa="۰.۲۱ میلیون">0.21M</span>
+        </div>
+        <div class="stat-label">
+          <span data-i18n-en="Estimated Global Demand (2024, Tons/Y)"
+                data-i18n-fa="برآورد تقاضای جهانی (۲۰۲۴، تن/سال)">
+            Estimated Global Demand (2024, Tons/Y)
+          </span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value">
+          <span data-i18n-en="$0.73B" data-i18n-fa="۰.۷۳ میلیارد دلار">$0.73B</span>
+        </div>
+        <div class="stat-label">
+          <span data-i18n-en="Indicative Market Value (2024)"
+                data-i18n-fa="برآورد ارزش بازار (۲۰۲۴)">
+            Indicative Market Value (2024)
+          </span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value">
+          <span data-i18n-en="Nonionic Liquid (NP-9 grade)"
+                data-i18n-fa="مایع غیر‌یونی (گرید NP-9)">
+            Nonionic Liquid (NP-9 grade)
+          </span>
+        </div>
+        <div class="stat-label">
+          <span data-i18n-en="Common Form / Grade" data-i18n-fa="شکل/گرید رایج">Common Form / Grade</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="main-content">
+
+        <div class="section-card">
+          <div class="section-header properties-header">
+            <div class="section-icon"><i class="fas fa-vial"></i></div>
+            <h2 class="section-title">
+              <span data-i18n-en="Chemical Properties (Representative: NPEO-9)"
+                    data-i18n-fa="خواص شیمیایی (نماینده: NPEO-9)">
+                Chemical Properties (Representative: NPEO-9)
+              </span>
+            </h2>
+          </div>
+
+          <div class="property-grid">
+            <div class="property-item">
+              <div class="property-label">
+                <i class="fas fa-weight-hanging"></i>
+                <span data-i18n-en="Molecular Weight" data-i18n-fa="جرم مولکولی">Molecular Weight</span>
+              </div>
+              <div class="property-value">
+                <span data-i18n-en=">500 g/mol (mixture; NP-9 typically ~600+)"
+                      data-i18n-fa="بیش از ۵۰۰ گرم/مول (مخلوط؛ NP-9 معمولاً حدود ۶۰۰+ )">
+                  >500 g/mol (mixture; NP-9 typically ~600+)
+                </span>
+              </div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label">
+                <i class="fas fa-temperature-high"></i>
+                <span data-i18n-en="Boiling Point" data-i18n-fa="نقطه جوش">Boiling Point</span>
+              </div>
+              <div class="property-value">
+                <span data-i18n-en=">250°C" data-i18n-fa="بیش از ۲۵۰°C">>250°C</span>
+              </div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label">
+                <i class="fas fa-ruler-combined"></i>
+                <span data-i18n-en="Specific Gravity / Density" data-i18n-fa="چگالی نسبی/چگالی">Specific Gravity / Density</span>
+              </div>
+              <div class="property-value">
+                <span data-i18n-en="~1.045–1.065 (20°C) | ~1.055 g/mL (20°C)"
+                      data-i18n-fa="حدود ۱.۰۴۵ تا ۱.۰۶۵ (۲۰°C) | حدود ۱.۰۵۵ گرم/میلی‌لیتر (۲۰°C)">
+                  ~1.045–1.065 (20°C) | ~1.055 g/mL (20°C)
+                </span>
+              </div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label">
+                <i class="fas fa-tint"></i>
+                <span data-i18n-en="Water Solubility" data-i18n-fa="حلالیت در آب">Water Solubility</span>
+              </div>
+              <div class="property-value">
+                <span data-i18n-en="Soluble / dispersible in water (grade-dependent)"
+                      data-i18n-fa="محلول/قابل‌پراکنده‌شدن در آب (وابسته به گرید)">
+                  Soluble / dispersible in water (grade-dependent)
+                </span>
+              </div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label">
+                <i class="fas fa-fire"></i>
+                <span data-i18n-en="Flash Point" data-i18n-fa="نقطه اشتعال">Flash Point</span>
+              </div>
+              <div class="property-value">
+                <span data-i18n-en="~217°C (closed cup) (combustible; not readily ignited)"
+                      data-i18n-fa="حدود ۲۱۷°C (کاپ بسته) (قابل احتراق؛ دیرآتش‌گیر)">
+                  ~217°C (closed cup) (combustible; not readily ignited)
+                </span>
+              </div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label">
+                <i class="fas fa-cloud"></i>
+                <span data-i18n-en="Cloud Point (NP-9, 1% aq.)" data-i18n-fa="نقطه کدرشدن (NP-9، محلول ۱٪)">
+                  Cloud Point (NP-9, 1% aq.)
+                </span>
+              </div>
+              <div class="property-value">
+                <span data-i18n-en="~54°C (typical)" data-i18n-fa="حدود ۵۴°C (تیپیک)">~54°C (typical)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="capacity-note">
+            <span
+              data-i18n-en="Note: NPEO-9 is a mixture (distribution of EO units). Physical properties vary by supplier, EO distribution, and actives."
+              data-i18n-fa="نکته: NPEO-9 یک مخلوط است (توزیع تعداد واحدهای EO). خواص فیزیکی با توجه به تأمین‌کننده، توزیع EO و درصد اکتیو تغییر می‌کند.">
+              Note: NPEO-9 is a mixture (distribution of EO units). Physical properties vary by supplier, EO distribution, and actives.
+            </span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header hazard-header">
+            <div class="section-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <h2 class="section-title">
+              <span data-i18n-en="Hazard Classification & Handling" data-i18n-fa="طبقه‌بندی خطر و نحوه کاربری">
+                Hazard Classification & Handling
+              </span>
+            </h2>
+          </div>
+
+          <div class="hazard-section">
+            <h3 class="hazard-title">
+              <i class="fas fa-skull-crossbones"></i>
+              <span
+                data-i18n-en="Harmful if swallowed / in contact with skin; eye damage & skin irritation; toxic to aquatic life (grade/SDS dependent)"
+                data-i18n-fa="زیان‌آور در صورت بلع/تماس پوستی؛ آسیب جدی به چشم و تحریک پوست؛ سمی برای آبزیان (وابسته به گرید/SDS)">
+                Harmful if swallowed / in contact with skin; eye damage & skin irritation; toxic to aquatic life (grade/SDS dependent)
+              </span>
+            </h3>
+
+            <p class="hazard-value">
+              <span
+                data-i18n-en="Representative NP-9 SDS classifications commonly include Acute Tox. (Oral) Cat.4 (H302) and Acute Tox. (Dermal) Cat.4 (H312), with irritation/serious eye damage warnings. Use chemical goggles/face shield, gloves, protective clothing, and avoid release to drains. Implement spill containment and wastewater controls due to aquatic toxicity and persistence concerns."
+                data-i18n-fa="طبقه‌بندی‌های رایج در SDS برای NP-9 معمولاً شامل سمیت حاد خوراکی Cat.4 (H302) و سمیت حاد پوستی Cat.4 (H312) است و هشدارهای تحریک/آسیب جدی به چشم نیز دیده می‌شود. از عینک/شیلد، دستکش، لباس محافظ استفاده کنید و از ورود به فاضلاب جلوگیری نمایید. به‌دلیل سمیت آبزیان و دغدغه‌های پایداری، مهار نشت و کنترل پساب ضروری است.">
+                Representative NP-9 SDS classifications commonly include Acute Tox. (Oral) Cat.4 (H302) and Acute Tox. (Dermal) Cat.4 (H312), with irritation/serious eye damage warnings. Use chemical goggles/face shield, gloves, protective clothing, and avoid release to drains. Implement spill containment and wastewater controls due to aquatic toxicity and persistence concerns.
+              </span>
+            </p>
+          </div>
+
+          <div class="section-header health-header" style="margin-top: 25px;">
+            <div class="section-icon"><i class="fas fa-heartbeat"></i></div>
+            <h2 class="section-title">
+              <span data-i18n-en="Regulatory & Sustainability Notes" data-i18n-fa="یادداشت‌های مقرراتی و پایداری">
+                Regulatory & Sustainability Notes
+              </span>
+            </h2>
+          </div>
+
+          <div class="health-section">
+            <h3 class="health-title">
+              <i class="fas fa-balance-scale"></i>
+              <span
+                data-i18n-en="Restricted/phase-out in several regions; textiles & detergents are key focus areas"
+                data-i18n-fa="محدودیت/حذف تدریجی در برخی مناطق؛ منسوجات و شوینده‌ها از حوزه‌های کلیدی هستند">
+                Restricted/phase-out in several regions; textiles & detergents are key focus areas
+              </span>
+            </h3>
+            <p class="health-value">
+              <span
+                data-i18n-en="In the EU, Regulation (EU) 2016/26 limits nonylphenol ethoxylates in washable textile articles (0.01% by weight) with enforcement from 3 Feb 2021. In the U.S., a voluntary phase-out removed NPEs from many laundry detergent uses over the past decade, and California DTSC finalized a Priority Product regulation for laundry detergents containing NPEs (2024). These policies continue to shift demand toward alcohol ethoxylates, APG, and other alternatives."
+                data-i18n-fa="در اتحادیه اروپا، مقرره (EU) 2016/26 مقدار NPEO را در منسوجات قابل شست‌وشو به ۰.۰۱٪ وزنی محدود کرده و اجرا از ۳ فوریه ۲۰۲۱ انجام می‌شود. در آمریکا نیز حذف داوطلبانه NPEها از بسیاری کاربردهای شوینده طی سال‌های گذشته انجام شده و اداره DTSC کالیفرنیا مقرره «محصول اولویت‌دار» برای شوینده‌های حاوی NPE را نهایی کرده است (۲۰۲۴). این سیاست‌ها تقاضا را به سمت جایگزین‌هایی مثل الکل‌اتوکسیلات‌ها، APG و سایر گزینه‌ها سوق می‌دهد.">
+                In the EU, Regulation (EU) 2016/26 limits nonylphenol ethoxylates in washable textile articles (0.01% by weight) with enforcement from 3 Feb 2021. In the U.S., a voluntary phase-out removed NPEs from many laundry detergent uses over the past decade, and California DTSC finalized a Priority Product regulation for laundry detergents containing NPEs (2024). These policies continue to shift demand toward alcohol ethoxylates, APG, and other alternatives.
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="molecular-visualization">
+          <div class="molecular-header">
+            <div class="section-icon"><i class="fas fa-project-diagram"></i></div>
+            <h2 class="molecular-title">
+              <span data-i18n-en="3D Molecular Structure (Stylized: NP-9)"
+                    data-i18n-fa="ساختار مولکولی سه‌بعدی (شماتیک: NP-9)">
+                3D Molecular Structure (Stylized: NP-9)
+              </span>
+            </h2>
+          </div>
+          <div class="molecular-diagram">
+            <div id="molecular-canvas"></div>
+          </div>
+          <div class="molecular-info">
+            <div class="molecular-label"><span class="color-swatch molecular-red"></span> <span data-i18n-en="Oxygen (O)" data-i18n-fa="اکسیژن (O)">Oxygen (O)</span></div>
+            <div class="molecular-label"><span class="color-swatch molecular-blue"></span> <span data-i18n-en="Carbon (C)" data-i18n-fa="کربن (C)">Carbon (C)</span></div>
+            <div class="molecular-label"><span class="color-swatch molecular-gray"></span> <span data-i18n-en="Hydrogen (H) / EO chain (stylized)" data-i18n-fa="هیدروژن (H) / زنجیره EO (شماتیک)">Hydrogen (H) / EO chain (stylized)</span></div>
+          </div>
+          <div class="capacity-note">
+            <span
+              data-i18n-en="Interactive stylized view of NP-9: a nonylphenol headgroup with ~9 ethoxylate (EO) units. Real commercial products are distributions (NPEO(x))."
+              data-i18n-fa="نمایش تعاملی شماتیک NP-9: سرِ نونیل‌فنول با حدود ۹ واحد اتوکسیلات (EO). محصولات تجاری واقعی، توزیعی از NPEO(x) هستند.">
+              Interactive stylized view of NP-9: a nonylphenol headgroup with ~9 ethoxylate (EO) units. Real commercial products are distributions (NPEO(x)).
+            </span>
+          </div>
+        </div>
+
+        <div class="feedstock-section">
+          <div class="feedstock-header">
+            <div class="section-icon"><i class="fas fa-industry"></i></div>
+            <h2 class="feedstock-title">
+              <span data-i18n-en="Production Process & Capacity (Typical)"
+                    data-i18n-fa="فرآیند تولید و ظرفیت (تیپیک)">
+                Production Process &amp; Capacity (Typical)
+              </span>
+            </h2>
+          </div>
+
+          <div class="process-info">
+            <i class="fas fa-info-circle" style="margin-inline-end: 6px; color: var(--primary);"></i>
+            <span data-i18n-en="Nonylphenol ethoxylates are produced via"
+                  data-i18n-fa="اتوکسیلات‌های نونیل‌فنول معمولاً از طریق">
+              Nonylphenol ethoxylates are produced via
+            </span>
+            <span class="process-highlight"><span data-i18n-en="ethoxylation of nonylphenol (NP) with ethylene oxide (EO)"
+                  data-i18n-fa="اتوکسیلاسیون نونیل‌فنول (NP) با اتیلن‌اکساید (EO)">
+              ethoxylation of nonylphenol (NP) with ethylene oxide (EO)
+            </span></span>
+            <span data-i18n-en="and are often supplied as industrial nonionic surfactant grades (e.g., NP-9)."
+                  data-i18n-fa="و معمولاً به‌صورت گریدهای غیر‌یونی صنعتی (مثل NP-9) عرضه می‌شوند.">
+              and are often supplied as industrial nonionic surfactant grades (e.g., NP-9).
+            </span>
+          </div>
+
+          <div class="process-selector">
+            <button class="process-btn active" data-process="ethoxylation">
+              <span data-i18n-en="Ethoxylation (Primary Route)" data-i18n-fa="اتوکسیلاسیون (مسیر اصلی)">Ethoxylation (Primary Route)</span>
+            </button>
+            <button class="process-btn" data-process="np_upstream">
+              <span data-i18n-en="Upstream: Nonylphenol (NP) Manufacturing" data-i18n-fa="بالادستی: تولید نونیل‌فنول (NP)">Upstream: Nonylphenol (NP) Manufacturing</span>
+            </button>
+          </div>
+
+          <div class="process-stages">
+            <div class="stage">
+              <div class="stage-title"><span class="stage-number">1</span> <span data-i18n-en="Feed Preparation" data-i18n-fa="آماده‌سازی خوراک">Feed Preparation</span></div>
+              <div class="stage-description">
+                <span data-i18n-en="Nonylphenol is dried/conditioned; EO supply and inerting (N2) are set for safe reaction control."
+                      data-i18n-fa="نونیل‌فنول خشک/شرطی‌سازی می‌شود؛ تأمین EO و اینرت‌سازی (نیتروژن) برای کنترل ایمن واکنش تنظیم می‌گردد.">
+                  Nonylphenol is dried/conditioned; EO supply and inerting (N2) are set for safe reaction control.
+                </span>
+              </div>
+            </div>
+
+            <div class="stage">
+              <div class="stage-title"><span class="stage-number">2</span> <span data-i18n-en="Catalytic Ethoxylation" data-i18n-fa="اتوکسیلاسیون کاتالیستی">Catalytic Ethoxylation</span></div>
+              <div class="stage-description">
+                <span data-i18n-en="EO is reacted with NP under basic catalysis (commonly KOH). EO:NP ratio sets the average EO number (e.g., ~9)."
+                      data-i18n-fa="EO تحت کاتالیست بازی (معمولاً KOH) با NP واکنش می‌دهد. نسبت EO به NP تعداد متوسط EO (مثل ~۹) را تعیین می‌کند.">
+                  EO is reacted with NP under basic catalysis (commonly KOH). EO:NP ratio sets the average EO number (e.g., ~9).
+                </span>
+              </div>
+            </div>
+
+            <div class="stage">
+              <div class="stage-title"><span class="stage-number">3</span> <span data-i18n-en="Neutralization & Finishing" data-i18n-fa="خنثی‌سازی و تکمیل">Neutralization & Finishing</span></div>
+              <div class="stage-description">
+                <span data-i18n-en="Catalyst neutralization, stripping of residual EO, filtration, and quality adjustment (color, actives, water)."
+                      data-i18n-fa="خنثی‌سازی کاتالیست، استریپ‌کردن EO باقیمانده، فیلتراسیون و تنظیم کیفیت (رنگ، اکتیو، آب).">
+                  Catalyst neutralization, stripping of residual EO, filtration, and quality adjustment (color, actives, water).
+                </span>
+              </div>
+            </div>
+
+            <div class="stage">
+              <div class="stage-title"><span class="stage-number">4</span> <span data-i18n-en="Storage, QA & EHS Controls" data-i18n-fa="ذخیره‌سازی، کنترل کیفیت و HSE">Storage, QA & EHS Controls</span></div>
+              <div class="stage-description">
+                <span data-i18n-en="Bulk storage with spill containment; wastewater controls are emphasized due to aquatic toxicity and regulatory requirements."
+                      data-i18n-fa="ذخیره‌سازی بالک با حوضچه مهار نشت؛ به‌دلیل سمیت آبزیان و الزامات مقرراتی، کنترل پساب بسیار مهم است.">
+                  Bulk storage with spill containment; wastewater controls are emphasized due to aquatic toxicity and regulatory requirements.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="plant-capacity">
+            <div class="capacity-card">
+              <div class="capacity-title"><i class="fas fa-industry"></i> <span data-i18n-en="Minimum Practical Unit" data-i18n-fa="حداقل مقیاس عملیاتی">Minimum Practical Unit</span></div>
+              <div class="capacity-value"><span data-i18n-en="5K–10K T/Y" data-i18n-fa="۵ تا ۱۰ هزار تن/سال">5K–10K T/Y</span></div>
+              <div class="capacity-location"><span data-i18n-en="Batch / small continuous ethoxylation with dedicated EHS"
+                                               data-i18n-fa="اتوکسیلاسیون بچ/پیوسته کوچک با الزامات HSE اختصاصی">
+                Batch / small continuous ethoxylation with dedicated EHS
+              </span></div>
+            </div>
+
+            <div class="capacity-card">
+              <div class="capacity-title"><i class="fas fa-industry"></i> <span data-i18n-en="Large Integrated Scale" data-i18n-fa="مقیاس بزرگ یکپارچه">Large Integrated Scale</span></div>
+              <div class="capacity-value"><span data-i18n-en="50K–200K T/Y" data-i18n-fa="۵۰ تا ۲۰۰ هزار تن/سال">50K–200K T/Y</span></div>
+              <div class="capacity-location"><span data-i18n-en="Integrated surfactants site (EO + ethoxylation + finishing)"
+                                               data-i18n-fa="سایت یکپارچه سورفکتانت (EO + اتوکسیلاسیون + فینیشینگ)">
+                Integrated surfactants site (EO + ethoxylation + finishing)
+              </span></div>
+            </div>
+          </div>
+
+          <div class="capacity-note">
+            <span
+              data-i18n-en="Market reality: despite restrictions in specific consumer/textile uses, NPEs remain in some industrial applications where performance/cost is critical. Demand is increasingly shaped by compliance and substitution to alternatives."
+              data-i18n-fa="واقعیت بازار: با وجود محدودیت‌ها در برخی کاربردهای مصرفی/منسوجات، NPEها در برخی کاربردهای صنعتی که عملکرد/هزینه حیاتی است همچنان حضور دارند. تقاضا به‌شدت تحت تأثیر الزامات انطباق و جایگزینی با گزینه‌های دیگر است.">
+              Market reality: despite restrictions in specific consumer/textile uses, NPEs remain in some industrial applications where performance/cost is critical. Demand is increasingly shaped by compliance and substitution to alternatives.
+            </span>
+          </div>
+        </div>
+
+        <div class="applications-section">
+          <div class="applications-header">
+            <div class="section-icon"><i class="fas fa-building"></i></div>
+            <h2 class="applications-title"><span data-i18n-en="Industry Applications" data-i18n-fa="کاربردهای صنعتی">Industry Applications</span></h2>
+          </div>
+
+          <div class="industry-tags">
+            <div class="industry-tag"><span data-i18n-en="Industrial & Institutional Cleaning" data-i18n-fa="شوینده‌های صنعتی/سازمانی">Industrial & Institutional Cleaning</span></div>
+            <div class="industry-tag"><span data-i18n-en="Textile / Leather Processing (Restricted)" data-i18n-fa="فرآوری نساجی/چرم (محدودیت‌دار)">Textile / Leather Processing (Restricted)</span></div>
+            <div class="industry-tag"><span data-i18n-en="Oilfield Chemicals" data-i18n-fa="مواد شیمیایی نفتی">Oilfield Chemicals</span></div>
+            <div class="industry-tag"><span data-i18n-en="Paints & Coatings" data-i18n-fa="رنگ و پوشش‌ها">Paints & Coatings</span></div>
+            <div class="industry-tag"><span data-i18n-en="Agrochemical Adjuvants" data-i18n-fa="کمک‌فرمولاسیون کشاورزی">Agrochemical Adjuvants</span></div>
+          </div>
+
+          <div class="application-chart">
+            <canvas id="applicationsChart" width="400" height="220"></canvas>
+          </div>
+
+          <div class="chart-legend">
+            <div class="legend-item"><span class="legend-color" style="background-color:#2563eb;"></span>
+              <span><span data-i18n-en="I&I Cleaning (35%)*" data-i18n-fa="شوینده صنعتی (۳۵٪)*">I&I Cleaning (35%)*</span></span>
+            </div>
+            <div class="legend-item"><span class="legend-color" style="background-color:#8b5cf6;"></span>
+              <span><span data-i18n-en="Textile/Leather (20%)*" data-i18n-fa="نساجی/چرم (۲۰٪)*">Textile/Leather (20%)*</span></span>
+            </div>
+            <div class="legend-item"><span class="legend-color" style="background-color:#10b981;"></span>
+              <span><span data-i18n-en="Oilfield (15%)*" data-i18n-fa="نفتی (۱۵٪)*">Oilfield (15%)*</span></span>
+            </div>
+            <div class="legend-item"><span class="legend-color" style="background-color:#f59e0b;"></span>
+              <span><span data-i18n-en="Paints/Coatings (10%)*" data-i18n-fa="رنگ/پوشش (۱۰٪)*">Paints/Coatings (10%)*</span></span>
+            </div>
+            <div class="legend-item"><span class="legend-color" style="background-color:#ef4444;"></span>
+              <span><span data-i18n-en="Agro & Others (20%)*" data-i18n-fa="کشاورزی و سایر (۲۰٪)*">Agro & Others (20%)*</span></span>
+            </div>
+          </div>
+
+          <div class="capacity-note">
+            <span
+              data-i18n-en="*The application split is an indicative visualization (mix varies widely by region, regulation, and supplier portfolio)."
+              data-i18n-fa="*تقسیم‌بندی کاربردها صرفاً یک نمایش «تقریبی» برای تجسم است (ترکیب واقعی با منطقه، مقررات و سبد محصولات تأمین‌کنندگان تغییر می‌کند).">
+              *The application split is an indicative visualization (mix varies widely by region, regulation, and supplier portfolio).
+            </span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header license-header">
+            <div class="section-icon"><i class="fas fa-certificate"></i></div>
+            <h2 class="section-title">
+              <span data-i18n-en="Top Technology / Supply Ecosystem (Representative)"
+                    data-i18n-fa="اکوسیستم فناوری/تأمین (نمونه)">
+                Top Technology / Supply Ecosystem (Representative)
+              </span>
+            </h2>
+          </div>
+
+          <p style="color:#475569;margin-bottom:15px;line-height:1.5;">
+            <span
+              data-i18n-en="Representative ecosystem for industrial ethoxylation and nonionic surfactants. Many suppliers have shifted portfolios toward alternatives, but similar infrastructure (EO handling, ethoxylation reactors, finishing) remains core."
+              data-i18n-fa="اکوسیستم نمونه برای اتوکسیلاسیون صنعتی و سورفکتانت‌های غیر‌یونی. بسیاری از تأمین‌کنندگان سبد خود را به سمت جایگزین‌ها برده‌اند، اما زیرساخت‌های مشابه (هندلینگ EO، راکتورهای اتوکسیلاسیون، فینیشینگ) همچنان هسته اصلی است.">
+              Representative ecosystem for industrial ethoxylation and nonionic surfactants. Many suppliers have shifted portfolios toward alternatives, but similar infrastructure (EO handling, ethoxylation reactors, finishing) remains core.
+            </span>
+          </p>
+
+          <div class="license-providers">
+            <div class="provider-item">
+              <div class="provider-rank">1</div>
+              <div class="provider-info">
+                <div class="provider-name">Ethoxylation Technology (Reactor / EO Handling)</div>
+                <div class="provider-details"><span data-i18n-en="Batch & continuous ethoxylation | Global" data-i18n-fa="اتوکسیلاسیون بچ و پیوسته | جهانی">Batch & continuous ethoxylation | Global</span></div>
+                <div class="provider-licenses"><span data-i18n-en="EO safety systems, dosing control, stripping, finishing" data-i18n-fa="ایمنی EO، کنترل تزریق، استریپینگ، فینیشینگ">EO safety systems, dosing control, stripping, finishing</span></div>
+              </div>
+            </div>
+
+            <div class="provider-item">
+              <div class="provider-rank">2</div>
+              <div class="provider-info">
+                <div class="provider-name">Ethylene Oxide (EO) Supply Chain</div>
+                <div class="provider-details"><span data-i18n-en="EO integration drives cost & scale | Global" data-i18n-fa="یکپارچگی EO محرک هزینه و مقیاس | جهانی">EO integration drives cost & scale | Global</span></div>
+                <div class="provider-licenses"><span data-i18n-en="EO storage, transfer, process safety (PHA/LOPA)" data-i18n-fa="ذخیره/انتقال EO، ایمنی فرآیندی (PHA/LOPA)">EO storage, transfer, process safety (PHA/LOPA)</span></div>
+              </div>
+            </div>
+
+            <div class="provider-item">
+              <div class="provider-rank">3</div>
+              <div class="provider-info">
+                <div class="provider-name">Catalyst / Neutralization Chemicals</div>
+                <div class="provider-details"><span data-i18n-en="KOH catalysis & downstream neutralization | Global" data-i18n-fa="کاتالیست KOH و خنثی‌سازی پایین‌دستی | جهانی">KOH catalysis & downstream neutralization | Global</span></div>
+                <div class="provider-licenses"><span data-i18n-en="Selectivity control, residual EO management, spec control" data-i18n-fa="کنترل انتخاب‌پذیری، مدیریت EO باقیمانده، کنترل مشخصات">Selectivity control, residual EO management, spec control</span></div>
+              </div>
+            </div>
+
+            <div class="provider-item">
+              <div class="provider-rank">4</div>
+              <div class="provider-info">
+                <div class="provider-name">Formulation Houses (Detergent / Industrial)</div>
+                <div class="provider-details"><span data-i18n-en="Performance blends & substitution | Global" data-i18n-fa="بلندینگ عملکردی و جایگزینی | جهانی">Performance blends & substitution | Global</span></div>
+                <div class="provider-licenses"><span data-i18n-en="Compatibility, foaming, wetting, emulsification" data-i18n-fa="سازگاری، کف، ترشوندگی، امولسیون‌سازی">Compatibility, foaming, wetting, emulsification</span></div>
+              </div>
+            </div>
+
+            <div class="provider-item">
+              <div class="provider-rank">5</div>
+              <div class="provider-info">
+                <div class="provider-name">EHS & Wastewater Control Specialists</div>
+                <div class="provider-details"><span data-i18n-en="Aquatic risk & compliance | Global" data-i18n-fa="ریسک آبزیان و انطباق | جهانی">Aquatic risk & compliance | Global</span></div>
+                <div class="provider-licenses"><span data-i18n-en="Effluent treatment, monitoring, phase-out programs" data-i18n-fa="تصفیه پساب، پایش، برنامه‌های حذف تدریجی">Effluent treatment, monitoring, phase-out programs</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /main-content -->
+
+      <div class="sidebar">
+
+        <div class="market-insights">
+          <div class="market-header">
+            <div class="section-icon"><i class="fas fa-chart-pie"></i></div>
+            <h2 class="market-title"><span data-i18n-en="Global Demand Analysis" data-i18n-fa="تحلیل تقاضای جهانی">Global Demand Analysis</span></h2>
+          </div>
+
+          <p class="market-description">
+            <span
+              data-i18n-en="NPEO-9 demand is driven by industrial cleaning, oilfield chemicals, paints/coatings, and certain processing aids, but is constrained by environmental/regulatory pressure (notably in textiles and consumer-facing detergent segments)."
+              data-i18n-fa="تقاضای NPEO-9 توسط شوینده‌های صنعتی، مواد شیمیایی نفتی، رنگ/پوشش و برخی کمک‌فرآوری‌ها هدایت می‌شود، اما تحت فشارهای زیست‌محیطی/مقرراتی (به‌ویژه در منسوجات و برخی بخش‌های شوینده مصرفی) محدود می‌گردد.">
+              NPEO-9 demand is driven by industrial cleaning, oilfield chemicals, paints/coatings, and certain processing aids, but is constrained by environmental/regulatory pressure (notably in textiles and consumer-facing detergent segments).
+            </span>
+          </p>
+
+          <div class="demand-chart-container">
+            <canvas id="demandChart" width="400" height="250"></canvas>
+          </div>
+
+          <div class="chart-legend">
+            <div class="legend-item"><span class="legend-color" style="background-color:#2563eb;"></span>
+              <span><span data-i18n-en="Asia-Pacific (50%)*" data-i18n-fa="آسیا-اقیانوسیه (۵۰٪)*">Asia-Pacific (50%)*</span></span>
+            </div>
+            <div class="legend-item"><span class="legend-color" style="background-color:#8b5cf6;"></span>
+              <span><span data-i18n-en="Europe (20%)*" data-i18n-fa="اروپا (۲۰٪)*">Europe (20%)*</span></span>
+            </div>
+            <div class="legend-item"><span class="legend-color" style="background-color:#10b981;"></span>
+              <span><span data-i18n-en="North America (20%)*" data-i18n-fa="آمریکای شمالی (۲۰٪)*">North America (20%)*</span></span>
+            </div>
+            <div class="legend-item"><span class="legend-color" style="background-color:#f59e0b;"></span>
+              <span><span data-i18n-en="Other Regions (10%)*" data-i18n-fa="سایر مناطق (۱۰٪)*">Other Regions (10%)*</span></span>
+            </div>
+          </div>
+
+          <div class="capacity-note">
+            <span
+              data-i18n-en="*Regional split is an indicative visualization (actual distribution depends on regulation, substitution pace, and industrial demand)."
+              data-i18n-fa="*تقسیم‌بندی منطقه‌ای صرفاً یک نمایش «تقریبی» است (توزیع واقعی به مقررات، سرعت جایگزینی و تقاضای صنعتی وابسته است).">
+              *Regional split is an indicative visualization (actual distribution depends on regulation, substitution pace, and industrial demand).
+            </span>
+          </div>
+        </div>
+
+        <div class="key-commodity">
+          <div class="companies-header">
+            <div class="section-icon"><i class="fas fa-industry"></i></div>
+            <h2 class="companies-title"><span data-i18n-en="Market Snapshot (2024–2025)" data-i18n-fa="اسنپ‌شات بازار (۲۰۲۴–۲۰۲۵)">Market Snapshot (2024–2025)</span></h2>
+          </div>
+
+          <div class="property-grid" style="grid-template-columns:1fr;">
+            <div class="property-item">
+              <div class="property-label"><span data-i18n-en="Estimated Demand (2024)" data-i18n-fa="برآورد تقاضا (۲۰۲۴)">Estimated Demand (2024)</span></div>
+              <div class="property-value" style="color:var(--primary);"><span data-i18n-en="~207K tonnes" data-i18n-fa="حدود ۲۰۷ هزار تن">~207K tonnes</span></div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label"><span data-i18n-en="Market Value (2024)" data-i18n-fa="ارزش بازار (۲۰۲۴)">Market Value (2024)</span></div>
+              <div class="property-value" style="color:var(--primary);"><span data-i18n-en="~US$725.7M (reported estimate)" data-i18n-fa="حدود ۷۲۵.۷ میلیون دلار (برآورد گزارش‌شده)">~US$725.7M (reported estimate)</span></div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label"><span data-i18n-en="Key Constraint" data-i18n-fa="محدودیت کلیدی">Key Constraint</span></div>
+              <div class="property-value" style="color:var(--primary);"><span data-i18n-en="Environmental & regulatory pressure" data-i18n-fa="فشارهای زیست‌محیطی و مقرراتی">Environmental & regulatory pressure</span></div>
+            </div>
+
+            <div class="property-item">
+              <div class="property-label"><span data-i18n-en="Substitution Trend" data-i18n-fa="روند جایگزینی">Substitution Trend</span></div>
+              <div class="property-value" style="color:var(--primary);"><span data-i18n-en="Shift to AEs/APG and other alternatives" data-i18n-fa="حرکت به سمت AE/APG و جایگزین‌ها">Shift to AEs/APG and other alternatives</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-companies">
+          <div class="companies-header">
+            <div class="section-icon"><i class="fas fa-city"></i></div>
+            <h2 class="companies-title"><span data-i18n-en="Representative Manufacturers / Supply Chain" data-i18n-fa="تأمین‌کنندگان/زنجیره تأمین (نمونه)">Representative Manufacturers / Supply Chain</span></h2>
+          </div>
+
+          <ul class="company-list">
+            <li class="company-item">
+              <div class="company-flag"><span data-i18n-en="EU" data-i18n-fa="اروپا">EU</span></div>
+              <div>
+                <div class="company-name">Major Nonionic Surfactant Producers</div>
+                <div class="company-country"><span data-i18n-en="Ethoxylation assets; portfolios increasingly include NPE alternatives" data-i18n-fa="دارایی‌های اتوکسیلاسیون؛ حرکت سبد محصولات به سمت جایگزین‌های NPE">Ethoxylation assets; portfolios increasingly include NPE alternatives</span></div>
+              </div>
+            </li>
+
+            <li class="company-item">
+              <div class="company-flag"><span data-i18n-en="US" data-i18n-fa="آمریکا">US</span></div>
+              <div>
+                <div class="company-name">Industrial Formulators / I&I Suppliers</div>
+                <div class="company-country"><span data-i18n-en="Detergent blends; compliance-driven substitution programs" data-i18n-fa="بلندینگ شوینده؛ برنامه‌های جایگزینی مبتنی بر انطباق">Detergent blends; compliance-driven substitution programs</span></div>
+              </div>
+            </li>
+
+            <li class="company-item">
+              <div class="company-flag"><span data-i18n-en="CN" data-i18n-fa="چین">CN</span></div>
+              <div>
+                <div class="company-name">Asian Ethoxylation & Surfactants Sites</div>
+                <div class="company-country"><span data-i18n-en="Large-scale EO & surfactants; demand tied to industrial growth" data-i18n-fa="EO و سورفکتانت در مقیاس بالا؛ تقاضا وابسته به رشد صنعتی">Large-scale EO & surfactants; demand tied to industrial growth</span></div>
+              </div>
+            </li>
+
+            <li class="company-item">
+              <div class="company-flag"><span data-i18n-en="ME" data-i18n-fa="خاورمیانه">ME</span></div>
+              <div>
+                <div class="company-name">EO-Integrated Petrochemical Hubs</div>
+                <div class="company-country"><span data-i18n-en="EO availability supports ethoxylates value chain" data-i18n-fa="دسترسی به EO زنجیره اتوکسیلات‌ها را تقویت می‌کند">EO availability supports ethoxylates value chain</span></div>
+              </div>
+            </li>
+          </ul>
+
+          <div class="capacity-note">
+            <span
+              data-i18n-en="Note: This list is representative of the supply ecosystem (not a claim of NPEO-9 production by a specific company in every region)."
+              data-i18n-fa="نکته: این فهرست صرفاً نماینده اکوسیستم تأمین است (به‌معنای تولید حتمی NPEO-9 توسط هر شرکت در هر منطقه نیست).">
+              Note: This list is representative of the supply ecosystem (not a claim of NPEO-9 production by a specific company in every region).
+            </span>
+          </div>
+        </div>
+
+      </div><!-- /sidebar -->
+    </div><!-- /content-grid -->
+
+    <div class="design-credit">
+      <div class="credit-header">
+        <div class="credit-icon"><i class="fas fa-hard-hat"></i></div>
+        <h2 class="credit-title"><span data-i18n-en="Engineering Design Credit" data-i18n-fa="هزینه طراحی مهندسی">Engineering Design Credit</span></h2>
+      </div>
+      <div class="credit-details">
+        <p><span data-i18n-en="This chemical database was compiled and designed by Ali Hosseinpour."
+                 data-i18n-fa="این پایگاه‌داده شیمیایی توسط علی حسین‌پور گردآوری و تدوین شده است.">
+          This chemical database was compiled and designed by Ali Hosseinpour.
+        </span></p>
+      </div>
+      <div class="contact-info">
+        <a class="contact-item" href="tel:+989162926778"><i class="fas fa-phone"></i><span>+989162926778</span></a>
+        <a class="contact-item" href="mailto:hosseinpour431@gmail.com"><i class="fas fa-envelope"></i><span>hosseinpour431@gmail.com</span></a>
+      </div>
+    </div>
+
+    <footer>
+      <p><span data-i18n-en="Chemical Farm © 2025 | Comprehensive chemical intelligence for industry professionals"
+               data-i18n-fa="کمیکال فارم © 2025| هوشمندی جامع شیمی برای متخصصان صنعت">
+        Chemical Farm © 2025 | Comprehensive chemical intelligence for industry professionals
+      </span></p>
+      <p class="footer-note"><span data-i18n-en="Data verified through authoritative chemical databases and industry reports"
+                                 data-i18n-fa="داده‌ها با اتکا به پایگاه‌های معتبر شیمیایی و گزارش‌های صنعتی راستی‌آزمایی شده‌اند">
+        Data verified through authoritative chemical databases and industry reports
+      </span></p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Initialize all visualizations
+    document.addEventListener('DOMContentLoaded', function() {
+      initMolecularVisualization();
+      initDemandPieChart();
+      initApplicationsPieChart();
+
+      // Add interactive elements to company items
+      document.querySelectorAll('.company-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const companyName = this.querySelector('.company-name')?.textContent || 'Company';
+          alert(`Viewing detailed information for ${companyName}...`);
+        });
+      });
+
+      // Process selector functionality (Bilingual-safe)
+      const processTemplates = {
+        ethoxylation: {
+          infoHTML: `
+            <i class="fas fa-info-circle" style="margin-inline-end: 6px; color: var(--primary);"></i>
+            <span data-i18n-en="NPEO-9 is produced by " data-i18n-fa="NPEO-9 از طریق ">NPEO-9 is produced by </span>
+            <span class="process-highlight"><span data-i18n-en="ethoxylating nonylphenol (NP) with ethylene oxide (EO)" data-i18n-fa="اتوکسیلاسیون نونیل‌فنول (NP) با اتیلن‌اکساید (EO)">ethoxylating nonylphenol (NP) with ethylene oxide (EO)</span></span>
+            <span data-i18n-en=" under basic catalysis (often KOH), followed by finishing and QA to industrial specifications."
+                  data-i18n-fa=" تحت کاتالیست بازی (اغلب KOH)، سپس فینیشینگ و کنترل کیفیت تا رسیدن به مشخصات صنعتی انجام می‌شود.">
+              under basic catalysis (often KOH), followed by finishing and QA to industrial specifications.
+            </span>
+          `,
+          stages: [
+            {
+              en: "Nonylphenol is dried/conditioned; EO feed is metered with inerting and pressure/temperature interlocks for safe operation.",
+              fa: "نونیل‌فنول خشک/شرطی‌سازی می‌شود؛ خوراک EO با اینرت‌سازی و اینترلاک‌های فشار/دما برای بهره‌برداری ایمن دوزینگ می‌گردد."
+            },
+            {
+              en: "Ethoxylation proceeds under basic catalysis; EO:NP ratio controls average EO number (NP-9) and product distribution.",
+              fa: "اتوکسیلاسیون تحت کاتالیست بازی انجام می‌شود؛ نسبت EO به NP تعداد متوسط EO (NP-9) و توزیع محصول را کنترل می‌کند."
+            },
+            {
+              en: "Neutralization, stripping of residual EO, filtration, and polishing adjust actives and appearance to spec.",
+              fa: "خنثی‌سازی، استریپ EO باقیمانده، فیلتراسیون و پولیش برای تنظیم اکتیو و ظاهر تا مشخصات انجام می‌شود."
+            },
+            {
+              en: "Bulk storage and loading with spill containment; wastewater controls are emphasized due to aquatic toxicity and regulatory constraints.",
+              fa: "ذخیره‌سازی و بارگیری بالک با مهار نشت؛ به‌دلیل سمیت آبزیان و محدودیت‌های مقرراتی، کنترل پساب بسیار مهم است."
+            }
+          ]
+        },
+        np_upstream: {
+          infoHTML: `
+            <i class="fas fa-info-circle" style="margin-inline-end: 6px; color: var(--primary);"></i>
+            <span data-i18n-en="Upstream, NP is made via " data-i18n-fa="در بالادست، NP از طریق ">Upstream, NP is made via </span>
+            <span class="process-highlight"><span data-i18n-en="alkylation of phenol with nonene streams" data-i18n-fa="آلکیلاسیون فنول با جریان‌های نونن">alkylation of phenol with nonene streams</span></span>
+            <span data-i18n-en=" (often from propylene-derived olefins), then purified before ethoxylation."
+                  data-i18n-fa=" (اغلب از اولفین‌های مشتق از پروپیلن)، سپس پیش از اتوکسیلاسیون خالص‌سازی می‌شود.">
+              (often from propylene-derived olefins), then purified before ethoxylation.
+            </span>
+          `,
+          stages: [
+            {
+              en: "Olefins (nonene) are produced in refinery/petrochemical systems; phenol is supplied as aromatic feedstock.",
+              fa: "اولفین‌ها (نونن) در پالایشگاه/پتروشیمی تولید می‌شوند؛ فنول به‌عنوان خوراک آروماتیکی تأمین می‌گردد."
+            },
+            {
+              en: "Friedel–Crafts alkylation produces nonylphenol isomers; catalyst choice impacts isomer distribution and color.",
+              fa: "آلکیلاسیون فریدل–کرافتس ایزومرهای نونیل‌فنول را تولید می‌کند؛ انتخاب کاتالیست بر توزیع ایزومر و رنگ اثر دارد."
+            },
+            {
+              en: "Purification removes catalyst residues and heavies; NP quality directly affects ethoxylation performance.",
+              fa: "خالص‌سازی، بقایای کاتالیست و سنگین‌ها را حذف می‌کند؛ کیفیت NP مستقیماً بر عملکرد اتوکسیلاسیون اثر می‌گذارد."
+            },
+            {
+              en: "NP is stored and sent to ethoxylation to produce NPEO(x) grades (NP-9 is a common industrial grade).",
+              fa: "NP ذخیره و به واحد اتوکسیلاسیون ارسال می‌شود تا گریدهای NPEO(x) تولید شوند (NP-9 یک گرید صنعتی رایج است)."
+            }
+          ]
+        }
+      };
+
+      function setProcess(processType){
+        const tpl = processTemplates[processType] || processTemplates.ethoxylation;
+
+        const infoBox = document.querySelector('.process-info');
+        if (infoBox) infoBox.innerHTML = tpl.infoHTML;
+
+        const stageDescs = Array.from(document.querySelectorAll('.stage-description'));
+        stageDescs.forEach((node, i)=>{
+          const st = tpl.stages[i];
+          if (!st) return;
+          node.innerHTML = `<span data-i18n-en="${st.en.replace(/"/g,'&quot;')}" data-i18n-fa="${st.fa.replace(/"/g,'&quot;')}">${st.en}</span>`;
+        });
+
+        if (window.ChemI18n && typeof window.ChemI18n.refresh === 'function') {
+          window.ChemI18n.refresh();
+        }
+      }
+
+      document.querySelectorAll('.process-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.process-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          setProcess(this.getAttribute('data-process'));
+        });
+      });
+
+      const activeBtn = document.querySelector('.process-btn.active');
+      setProcess(activeBtn ? activeBtn.getAttribute('data-process') : 'ethoxylation');
+
+      // Add subtle animations to all cards on page load
+      setTimeout(() => {
+        document.querySelectorAll('.section-card, .market-insights, .key-companies, .key-commodity').forEach((card, index) => {
+          setTimeout(() => { card.style.opacity='1'; card.style.transform='translateY(0)'; }, 150 * index);
+        });
+      }, 100);
+    });
+
+    // Initialize 2D Demand Pie Chart (Indicative visualization)
+    function initDemandPieChart() {
+      const el = document.getElementById('demandChart');
+      if (!el || !window.Chart) return;
+      const ctx = el.getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Asia-Pacific', 'Europe', 'North America', 'Other Regions'],
+          datasets: [{
+            data: [50, 20, 20, 10],
+            backgroundColor: ['#2563eb','#8b5cf6','#10b981','#f59e0b'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) { return `${context.label}: ${context.parsed}%`; }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Initialize 2D Applications Pie Chart (Indicative visualization)
+    function initApplicationsPieChart() {
+      const el = document.getElementById('applicationsChart');
+      if (!el || !window.Chart) return;
+      const ctx = el.getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['I&I Cleaning','Textile/Leather','Oilfield','Paints/Coatings','Agro & Others'],
+          datasets: [{
+            data: [35, 20, 15, 10, 20],
+            backgroundColor: ['#2563eb','#8b5cf6','#10b981','#f59e0b','#ef4444'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) { return `${context.label}: ${context.parsed}%`; }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Three.js stylized NP-9 visualization
+    function initMolecularVisualization() {
+      const container = document.getElementById('molecular-canvas');
+      if (!container || !window.THREE) return;
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--molecule-bg').trim() || '#f8fafc');
+
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.z = 9;
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+      const dl = new THREE.DirectionalLight(0xffffff, 0.85);
+      dl.position.set(2, 2, 2);
+      scene.add(dl);
+
+      const moleculeGroup = new THREE.Group();
+      scene.add(moleculeGroup);
+
+      function atom(pos, color, size, name){
+        const g = new THREE.SphereGeometry(size, 24, 24);
+        const m = new THREE.MeshPhongMaterial({ color, shininess: 110, specular: 0x333333 });
+        const s = new THREE.Mesh(g, m);
+        s.position.copy(pos);
+        s.userData = { name };
+        moleculeGroup.add(s);
+        return s;
+      }
+
+      function bond(a, b, color, r=0.08){
+        const dir = new THREE.Vector3().subVectors(b.position, a.position);
+        const mid = new THREE.Vector3().addVectors(a.position, b.position).multiplyScalar(0.5);
+        const len = dir.length();
+        const g = new THREE.CylinderGeometry(r, r, len, 20);
+        const m = new THREE.MeshPhongMaterial({ color, shininess: 55 });
+        const c = new THREE.Mesh(g, m);
+        c.position.copy(mid);
+        c.lookAt(b.position);
+        c.rotateX(Math.PI / 2);
+        moleculeGroup.add(c);
+        return c;
+      }
+
+      const Ccolor = 0x1e40af;
+      const Ocolor = 0xef4444;
+      const Hcolor = 0x64748b;
+      const bondColor = 0x475569;
+
+      // Aromatic ring (stylized hexagon)
+      const ringR = 1.1;
+      const ring = [];
+      for (let i=0;i<6;i++){
+        const ang = i * (Math.PI/3);
+        ring.push(atom(new THREE.Vector3(Math.cos(ang)*ringR, Math.sin(ang)*ringR, 0), Ccolor, 0.23, 'C'));
+      }
+      for (let i=0;i<6;i++) bond(ring[i], ring[(i+1)%6], bondColor, 0.075);
+
+      // Phenoxy oxygen linkage + EO chain (~9 units, stylized)
+      const O1 = atom(new THREE.Vector3(ringR+0.55, 0.0, 0.0), Ocolor, 0.22, 'O');
+      bond(ring[0], O1, bondColor, 0.07);
+
+      // EO chain nodes (stylized as alternating C/O-ish beads)
+      let prev = O1;
+      const step = 0.62;
+      for (let i=0;i<9;i++){
+        const isO = (i % 2 === 1);
+        const node = atom(new THREE.Vector3(ringR+0.55 + (i+1)*step, (i%2===0?0.22:-0.22), 0.08*(i%3-1)),
+                          isO ? Ocolor : Hcolor, isO ? 0.18 : 0.16, isO ? 'O' : 'C');
+        bond(prev, node, bondColor, 0.06);
+        prev = node;
+      }
+
+      // Nonyl tail (stylized short zig-zag)
+      const tailStart = atom(new THREE.Vector3(-0.65, -0.55, 0.0), Ccolor, 0.20, 'C');
+      bond(ring[3], tailStart, bondColor, 0.07);
+      let prevT = tailStart;
+      for (let j=0;j<5;j++){
+        const t = atom(new THREE.Vector3(-0.65 - (j+1)*0.55, -0.55 + (j%2===0?0.22:-0.22), 0.06*(j%3-1)),
+                       Ccolor, 0.18, 'C');
+        bond(prevT, t, bondColor, 0.06);
+        prevT = t;
+      }
+
+      moleculeGroup.rotation.y = 0.75;
+      moleculeGroup.rotation.x = 0.25;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        moleculeGroup.rotation.y += 0.0038;
+        moleculeGroup.rotation.x += 0.0012;
+        renderer.render(scene, camera);
+      }
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      window.addEventListener('chemThemeChange', () => {
+        try{
+          const bg = getComputedStyle(document.documentElement).getPropertyValue('--molecule-bg').trim() || '#f8fafc';
+          scene.background = new THREE.Color(bg);
+          renderer.render(scene, camera);
+        }catch(e){}
+      });
+
+      animate();
+    }
+  </script>
+
+  <script>
+    (function(){
+      const langBtn = document.getElementById('langToggle');
+      const langLabel = document.getElementById('langLabel');
+      const themeBtn = document.getElementById('themeToggle');
+
+      function renderI18n(el, lang){
+        const en = el.getAttribute('data-i18n-en') ?? '';
+        const fa = el.getAttribute('data-i18n-fa') ?? '';
+        if (el.tagName === 'TITLE'){ el.textContent = (lang === 'fa') ? fa : en; return; }
+        el.textContent = (lang === 'fa') ? fa : en;
+      }
+
+      function applyLang(lang){
+        document.documentElement.setAttribute('lang', lang);
+        document.documentElement.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
+        if (langLabel) langLabel.textContent = (lang === 'fa') ? 'EN' : 'FA';
+        document.querySelectorAll('[data-i18n-en][data-i18n-fa]').forEach(el => renderI18n(el, lang));
+      }
+
+      function getLang(){ return document.documentElement.getAttribute('lang') || 'en'; }
+
+      function applyTheme(theme){
+        document.documentElement.setAttribute('data-theme', theme);
+        const icon = themeBtn?.querySelector('i');
+        if (icon){
+          icon.classList.remove('fa-moon','fa-sun');
+          icon.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
+        }
+        window.dispatchEvent(new CustomEvent('chemThemeChange', { detail: { theme } }));
+      }
+
+      function getTheme(){ return document.documentElement.getAttribute('data-theme') || 'light'; }
+
+      window.ChemI18n = { applyLang, getLang, refresh: ()=>applyLang(getLang()) };
+
+      const savedLang = localStorage.getItem('chem_lang');
+      const autoLang = (navigator.language || '').toLowerCase().startsWith('fa') ? 'fa' : 'en';
+      applyLang(savedLang || autoLang);
+
+      langBtn?.addEventListener('click', ()=>{
+        const next = getLang() === 'fa' ? 'en' : 'fa';
+        localStorage.setItem('chem_lang', next);
+        applyLang(next);
+      });
+
+      const savedTheme = localStorage.getItem('chem_theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+      themeBtn?.addEventListener('click', ()=>{
+        const next = getTheme() === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('chem_theme', next);
+        applyTheme(next);
+      });
+    })();
+  </script>
+</body>
+
+
+
+</html>

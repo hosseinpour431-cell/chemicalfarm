@@ -1,0 +1,2901 @@
+<!doctype html>
+<html dir="rtl" lang="fa" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n-en="Chemical Farm | Acetic acid" data-i18n-fa="کمیکال فارم | استیک اسید">Chemical Farm | Acetaldehyde</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600&amp;family=Vazirmatn:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+        :root {
+            --primary: #0d9488;
+            --primary-light: #14b8a6;
+            --secondary: #2563eb;
+            --danger: #fb7185;
+            --warning: #fbbf24;
+            --success: #22c55e;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: rgba(15,23,42,0.10);
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glow-primary: 0 0 22px rgba(13, 148, 136, 0.22);
+            --glow-secondary: 0 0 22px rgba(37, 99, 235, 0.22);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Vazirmatn','Inter', sans-serif;
+            background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        header {
+            background: linear-gradient(120deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 35px 0;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow), var(--glow-primary);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform: translateY(0);
+            animation: headerFloat 6s ease-in-out infinite;
+        }
+        @keyframes headerFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            z-index: -1;
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo i {
+            font-size: 2rem;
+            background: rgba(255,255,255,0.15);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+        }
+        .logo h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+        .search-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+        }
+        #search-input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        #search-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        #search-input:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.1), var(--glow-primary);
+        }
+        
+        /* Header actions (Home + Language) */
+        .header-actions{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        .hdr-btn{
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            padding: 12px 16px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.10);
+            color: white;
+            font-size: 0.98rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        .hdr-btn i{ opacity: .9; }
+        .hdr-btn:hover{
+            transform: translateY(-2px);
+            box-shadow: var(--card-hover), var(--glow-secondary);
+            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.14);
+        }
+        .hdr-btn:active{ transform: translateY(0); }
+        .hdr-btn.lang{
+            border: 1px solid rgba(255,255,255,0.28);
+        }
+        #langLabel{
+            font-family: 'Space Grotesk','Vazirmatn','Inter',sans-serif;
+            font-weight: 700;
+            letter-spacing: .6px;
+        }
+
+        /* Language toggling */
+        html[lang="fa"] body{ direction: rtl; }
+        html[lang="fa"] .container{ direction: rtl; }
+        html[lang="fa"] .product-name,
+        html[lang="fa"] .section-title,
+        html[lang="fa"] .market-title,
+        html[lang="fa"] .companies-title,
+        html[lang="fa"] .applications-title,
+        html[lang="fa"] .feedstock-title,
+        html[lang="fa"] .molecular-title{
+            font-family:'Vazirmatn','Space Grotesk','Inter',sans-serif;
+        }
+.product-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .product-type {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            align-self: flex-start;
+            transition: var(--transition);
+            box-shadow: var(--glow-primary);
+        }
+        .product-type:hover {
+            transform: scale(1.03);
+            box-shadow: var(--glow-primary), 0 5px 15px rgba(37, 99, 235, 0.15);
+        }
+        .product-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .product-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.2rem;
+            color: #475569;
+            margin-top: 5px;
+        }
+        .product-stats {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow), var(--glow-primary);
+            transition: var(--transition);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: floatUp 0.6s ease-out;
+        }
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px;
+            border-radius: 16px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        .stat-value::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .stat-card:hover .stat-value::after {
+            width: 100%;
+        }
+        .stat-label {
+            font-size: 0.95rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
+        }
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 2;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .section-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .section-card:hover::before {
+            transform: scaleX(1);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .section-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .properties-header .section-icon {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        .hazard-header .section-icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        .health-header .section-icon {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        .industry-header .section-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .license-header .section-icon {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .section-card:hover .section-title::after {
+            width: 70%;
+        }
+        .property-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .property-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            position: relative;
+            padding-left: 10px;
+            transition: var(--transition);
+        }
+        .property-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gray);
+            opacity: 0.5;
+        }
+        .property-item:hover {
+            padding-left: 15px;
+        }
+        .property-item:hover::before {
+            background: var(--primary);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.2);
+        }
+        .property-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .property-label i {
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
+        .property-value {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+            position: relative;
+            display: inline-block;
+        }
+        .property-value::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .property-item:hover .property-value::after {
+            width: 100%;
+        }
+        .hazard-section, .health-section {
+            padding: 20px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hazard-section::before, .health-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            opacity: 0.7;
+        }
+        .hazard-section {
+            background: rgba(254, 226, 226, 0.4);
+            border: 1px solid #fecaca;
+        }
+        .hazard-section::before {
+            background: linear-gradient(to bottom, #ef4444, #dc2626);
+        }
+        .hazard-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #b91c1c;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .hazard-value {
+            color: #991b1b;
+            line-height: 1.6;
+        }
+        .health-section {
+            background: rgba(254, 249, 196, 0.4);
+            border: 1px solid #fde68a;
+        }
+        .health-section::before {
+            background: linear-gradient(to bottom, #f59e0b, #d97706);
+        }
+        .health-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #a16207;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .health-value {
+            color: #854d0e;
+            line-height: 1.6;
+        }
+        .industry-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .industry-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .industry-tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .industry-tag::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            z-index: -1;
+        }
+        .industry-tag:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: var(--success);
+            color: white;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+        .industry-tag:hover::after {
+            animation: shine 1s;
+        }
+        @keyframes shine {
+            to { transform: translateX(100%); }
+        }
+        .feedstock-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .feedstock-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+        }
+        .feedstock-section:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-secondary);
+        }
+        .feedstock-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .feedstock-header .section-icon {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+        }
+        .feedstock-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .raw-materials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .material-tag {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .material-tag::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+        .material-tag:hover {
+            transform: scale(1.05);
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+        .material-tag:hover::after {
+            transform: translateX(0);
+        }
+        .market-insights {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .market-insights::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .market-insights:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .market-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .market-header .section-icon {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        .market-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .market-description {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .demand-chart-container {
+            height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+            background: #f8fafc;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        .demand-chart-container:hover {
+            box-shadow: var(--card-hover), var(--glow-primary);
+            transform: scale(1.01);
+        }
+        .region-demand {
+            margin-top: 25px;
+        }
+        .region-item {
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+            background: white;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .region-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .region-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-hover);
+            z-index: 2;
+        }
+        .region-item:hover::before {
+            opacity: 1;
+        }
+        .region-item:nth-child(1) {
+            border-left-color: #2563eb;
+        }
+        .region-item:nth-child(1)::before {
+            background: linear-gradient(to bottom, #2563eb, #3b82f6);
+        }
+        .region-item:nth-child(2) {
+            border-left-color: #8b5cf6;
+        }
+        .region-item:nth-child(2)::before {
+            background: linear-gradient(to bottom, #8b5cf6, #a78bfa);
+        }
+        .region-item:nth-child(3) {
+            border-left-color: #10b981;
+        }
+        .region-item:nth-child(3)::before {
+            background: linear-gradient(to bottom, #10b981, #34d399);
+        }
+        .region-item:nth-child(4) {
+            border-left-color: #f59e0b;
+        }
+        .region-item:nth-child(4)::before {
+            background: linear-gradient(to bottom, #f59e0b, #fbbf24);
+        }
+        .region-title {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        .region-percentage {
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+            display: inline-block;
+        }
+        .region-percentage::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: var(--transition);
+        }
+        .region-item:hover .region-percentage::after {
+            width: 100%;
+        }
+        .region-description {
+            color: #64748b;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .region-progress {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .region-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+        .region-progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+        .key-companies {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .key-commodity {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .key-commodity:hover, .key-companies:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .companies-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .companies-header .section-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .companies-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .company-list {
+            list-style: none;
+        }
+        .company-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .company-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--success);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+            z-index: 1;
+        }
+        .company-item:hover::before {
+            transform: scaleX(1);
+        }
+        .company-item:last-child {
+            border-bottom: none;
+        }
+        .company-item:hover {
+            transform: translateX(5px);
+            background: rgba(16, 185, 129, 0.05);
+        }
+        .company-flag {
+            width: 28px;
+            height: 20px;
+            border-radius: 3px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.7rem;
+            color: #64748b;
+            transition: var(--transition);
+        }
+        .company-item:hover .company-flag {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 2px var(--success);
+        }
+        .company-name {
+            font-weight: 600;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        .company-name::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--success);
+            transition: var(--transition);
+        }
+        .company-item:hover .company-name::after {
+            width: 100%;
+        }
+        .company-country {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .molecular-visualization {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .molecular-visualization::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--danger), #f87171);
+        }
+        .molecular-visualization:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .molecular-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .molecular-header .section-icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        .molecular-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .molecular-diagram {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        .molecular-diagram:hover {
+            box-shadow: var(--card-hover);
+        }
+        #molecular-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .molecular-info {
+            display: flex;
+            justify-content: space-around;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 0.9rem;
+        }
+        .molecular-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .color-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .molecular-red {
+            background-color: #ef4444;
+        }
+        .molecular-blue {
+            background-color: #1e40af;
+        }
+        .molecular-gray {
+            background-color: #64748b;
+        }
+        .safety-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-top: 15px;
+            align-self: flex-start;
+            animation: pulseDanger 2s infinite;
+        }
+        @keyframes pulseDanger {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.2); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+        .footer-note {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        /* Production Process Specific Styles */
+        .process-stages {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stage {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px;
+            border-left: 3px solid var(--primary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .stage::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .stage:hover {
+            background: #edf2ff;
+            transform: translateX(5px);
+        }
+        .stage:hover::before {
+            animation: shine 1.5s;
+        }
+        @keyframes shine {
+            to { transform: translateX(100%); }
+        }
+        .stage-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .stage:hover .stage-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+        }
+        .stage-title {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+            position: relative;
+            display: inline-block;
+        }
+        .stage-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .stage:hover .stage-title::after {
+            width: 100%;
+        }
+        .stage-description {
+            color: #475569;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        .process-diagram {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 15px;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+        .diagram-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+        }
+        .plant-capacity {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .capacity-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px;
+            border-left: 3px solid var(--success);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .capacity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .capacity-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            background: #edf7f4;
+        }
+        .capacity-card:hover::before {
+            animation: shine 1.5s;
+        }
+        .capacity-title {
+            font-weight: 600;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .capacity-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .capacity-location {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .capacity-note {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+        .process-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+            padding-bottom: 8px;
+        }
+        .process-btn {
+            padding: 5px 12px;
+            border-radius: 18px;
+            background: #e2e8f0;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .process-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .process-btn:hover::after {
+            animation: shine 1s;
+        }
+        .process-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .process-info {
+            background: #f0f4ff;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            border-left: 3px solid var(--primary);
+        }
+        .process-highlight {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        /* Applications Section */
+        .applications-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .applications-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--success), #22c55e);
+        }
+        .applications-section:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover), var(--glow-primary);
+        }
+        .applications-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray);
+        }
+        .applications-header .section-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .applications-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .application-chart {
+            height: 250px;
+            margin-top: 15px;
+            position: relative;
+        }
+        .application-chart::after {
+            content: '3D Interactive';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(0,0,0,0.1);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            backdrop-filter: blur(2px);
+        }
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .legend-item:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        .design-credit {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-top: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .design-credit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .credit-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .credit-icon {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        .credit-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        .credit-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .credit-details {
+            color: #475569;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #f8fafc;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .contact-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        .contact-item:hover::before {
+            animation: shine 1s;
+        }
+        .contact-item:hover i {
+            color: white;
+        }
+        /* License Providers Section */
+        .license-providers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .provider-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: var(--transition);
+            border-left: 3px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        .provider-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+        .provider-item:hover {
+            transform: translateX(5px);
+            background: #f1f5f9;
+        }
+        .provider-item:hover::before {
+            animation: shine 1.5s;
+        }
+        .provider-rank {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
+        }
+        .provider-item:hover .provider-rank {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+        .provider-info {
+            flex: 1;
+        }
+        .provider-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+            position: relative;
+            display: inline-block;
+        }
+        .provider-name::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        .provider-item:hover .provider-name::after {
+            width: 100%;
+        }
+        .provider-details {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .provider-licenses {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            align-self: flex-start;
+            transition: var(--transition);
+        }
+        .provider-item:hover .provider-licenses {
+            background: var(--secondary);
+            color: white;
+        }
+        /* 3D Chart Container */
+        .chart3d-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .chart3d-tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 100;
+            transform: translate(-50%, -100%);
+        }
+        .chart3d-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(0,0,0,0.8);
+        }
+        @media (max-width: 1100px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .product-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .product-header {
+                flex-direction: column;
+            }
+            .product-name {
+                font-size: 2rem;
+                text-align: center;
+            }
+            .product-stats {
+                grid-template-columns: 1fr;
+            }
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            .plant-capacity {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+
+/* =========================
+   Language fonts & direction
+   ========================= */
+html[lang="en"] body{
+    font-family: 'Inter','Space Grotesk', sans-serif;
+}
+html[lang="fa"] body{
+    font-family: 'Vazirmatn','Inter', sans-serif;
+}
+/* Better RTL/LTR support using logical properties where possible */
+.property-item{ padding-inline-start: 10px; padding-left: 0; }
+.property-item:hover{ padding-inline-start: 15px; }
+.property-item::before{ inset-inline-start: 0; left: auto; }
+.region-item{ border-inline-start: 4px solid; border-left: 0; }
+.region-item::before{ inset-inline-start: 0; left:auto; }
+.stage{ border-inline-start: 3px solid var(--primary); border-left: 0; }
+.capacity-card{ border-inline-start: 3px solid var(--success); border-left: 0; }
+.provider-item{ border-inline-start: 3px solid var(--secondary); border-left: 0; }
+.hazard-section::before, .health-section::before{ inset-inline-start: 0; left:auto; }
+
+/* =========================
+   Theme system (Light/Dark)
+   ========================= */
+html{
+    /* surfaces */
+    --surface: #ffffff;
+    --surface-2: #f8fafc;
+    --surface-3: rgba(255,255,255,0.70);
+    --text-1: #0f172a;
+    --text-2: #475569;
+    --text-3: #64748b;
+    --border: rgba(15,23,42,0.10);
+    --molecule-bg: #f8fafc;
+    color-scheme: light;
+}
+body{
+    background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
+    color: var(--text-1);
+}
+html[data-theme="dark"]{
+    /* High-contrast dark palette (readable on true-black displays) */
+    --surface: rgba(12,18,34,0.88);
+    --surface-2: rgba(17,26,46,0.78);
+    --surface-3: rgba(12,18,34,0.62);
+
+    /* Text */
+    --text-1: #eef2ff;   /* main text */
+    --text-2: #d6def7;   /* body/secondary text */
+    --text-3: #a7b4d8;   /* muted text */
+
+    /* Critical: many parts of the page use var(--dark) for text */
+    --dark: #eef2ff;
+    --light: #0b1020;
+
+    /* Borders / shadows */
+    --border: rgba(167,180,216,0.18);
+    --gray: rgba(167,180,216,0.18);
+    --card-shadow: 0 10px 18px -4px rgba(0, 0, 0, 0.55), 0 4px 10px -6px rgba(0, 0, 0, 0.45);
+    --card-hover: 0 22px 30px -10px rgba(0, 0, 0, 0.65), 0 10px 16px -10px rgba(0, 0, 0, 0.50);
+
+    /* 3D canvas background */
+    --molecule-bg: #0b1020;
+
+    color-scheme: dark;
+}
+html[data-theme="dark"] body{
+    background: radial-gradient(1200px 800px at 10% 10%, rgba(13,148,136,0.20), transparent 55%),
+                radial-gradient(1000px 700px at 90% 15%, rgba(37,99,235,0.18), transparent 55%),
+                radial-gradient(1000px 700px at 50% 110%, rgba(139,92,246,0.14), transparent 55%),
+                linear-gradient(180deg, #020617 0%, #0b1220 100%);
+    color: var(--text-1);
+}
+/* Card surfaces */
+html[data-theme="dark"] .product-stats,
+html[data-theme="dark"] .section-card,
+html[data-theme="dark"] .feedstock-section,
+html[data-theme="dark"] .market-insights,
+html[data-theme="dark"] .key-companies,
+html[data-theme="dark"] .key-commodity,
+html[data-theme="dark"] .molecular-visualization,
+html[data-theme="dark"] .applications-section,
+html[data-theme="dark"] .design-credit{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+}
+html[data-theme="dark"] .demand-chart-container,
+html[data-theme="dark"] .process-diagram,
+html[data-theme="dark"] .molecular-info,
+html[data-theme="dark"] .stage,
+html[data-theme="dark"] .capacity-card,
+html[data-theme="dark"] .provider-item,
+html[data-theme="dark"] .contact-item,
+html[data-theme="dark"] .region-item{
+    background: var(--surface-2);
+    border-color: var(--border);
+}
+html[data-theme="dark"] .section-header,
+html[data-theme="dark"] .feedstock-header,
+html[data-theme="dark"] .market-header,
+html[data-theme="dark"] .companies-header,
+html[data-theme="dark"] .molecular-header,
+html[data-theme="dark"] .applications-header{
+    border-bottom: 1px solid var(--border);
+}
+/* Text colors */
+html[data-theme="dark"] .product-subtitle,
+html[data-theme="dark"] .market-description,
+html[data-theme="dark"] .region-description,
+html[data-theme="dark"] .company-country,
+html[data-theme="dark"] .capacity-location,
+html[data-theme="dark"] .capacity-note,
+html[data-theme="dark"] .property-label,
+html[data-theme="dark"] .stat-label,
+html[data-theme="dark"] footer,
+html[data-theme="dark"] .footer-note{
+    color: var(--text-2) !important;
+}
+html[data-theme="dark"] .property-value,
+html[data-theme="dark"] .region-title,
+html[data-theme="dark"] .company-name,
+html[data-theme="dark"] .stage-title,
+html[data-theme="dark"] .capacity-value,
+html[data-theme="dark"] .provider-name{
+    color: var(--text-1) !important;
+}
+html[data-theme="dark"] .region-progress{ background: rgba(148,163,184,0.18); }
+html[data-theme="dark"] .region-item:hover{ background: rgba(148,163,184,0.08); }
+html[data-theme="dark"] .company-item:hover{ background: rgba(16,185,129,0.08); }
+
+/* Hazard blocks in dark */
+html[data-theme="dark"] .hazard-section{
+    background: rgba(127,29,29,0.25);
+    border-color: rgba(239,68,68,0.35);
+}
+html[data-theme="dark"] .health-section{
+    background: rgba(120,53,15,0.25);
+    border-color: rgba(245,158,11,0.35);
+}
+html[data-theme="dark"] .safety-badge{
+    background: rgba(239,68,68,0.18);
+    color: #fecaca;
+}
+
+/* Toggle button polish */
+.hdr-btn.theme i{ transition: transform .25s ease; }
+.hdr-btn.theme:hover i{ transform: rotate(-10deg) scale(1.05); }
+
+/* Responsive fix: product-header is grid (not flex) */
+@media (max-width: 768px){
+    .product-header{ grid-template-columns: 1fr; }
+    .safety-badge{ justify-self: start; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+
+/* =========================
+   Dark-mode readability overrides (inline styles + hard-coded colors)
+   ========================= */
+html[data-theme="dark"]{
+    /* Make sure plain text defaults are readable */
+    color: var(--text-1);
+}
+
+html[data-theme="dark"] body{
+    color: var(--text-1);
+}
+
+/* Override common hard-coded text colors used in inline styles */
+html[data-theme="dark"] [style*="color: #475569"],
+html[data-theme="dark"] [style*="color:#475569"]{ color: var(--text-2) !important; }
+
+html[data-theme="dark"] [style*="color: #64748b"],
+html[data-theme="dark"] [style*="color:#64748b"]{ color: var(--text-3) !important; }
+
+html[data-theme="dark"] [style*="color: #0f172a"],
+html[data-theme="dark"] [style*="color:#0f172a"],
+html[data-theme="dark"] [style*="color: var(--dark)"],
+html[data-theme="dark"] [style*="color:var(--dark)"]{ color: var(--text-1) !important; }
+
+/* Fix common light backgrounds used inline inside CAPEX cards */
+html[data-theme="dark"] [style*="background: #f8fafc"],
+html[data-theme="dark"] [style*="background:#f8fafc"]{
+    background: var(--surface-2) !important;
+    border-color: var(--border) !important;
+}
+html[data-theme="dark"] [style*="background: #fff7ed"],
+html[data-theme="dark"] [style*="background:#fff7ed"],
+html[data-theme="dark"] [style*="background: #fff7ed;"],
+html[data-theme="dark"] [style*="background:#fff7ed;"]{
+    background: rgba(249,115,22,0.12) !important;
+    border-color: rgba(249,115,22,0.28) !important;
+}
+
+/* Ensure link/text inside contact pills stays readable */
+html[data-theme="dark"] a{ color: var(--text-1); }
+html[data-theme="dark"] a:hover{ color: var(--text-1); }
+
+/* Keep small helper texts readable */
+html[data-theme="dark"] .credit-details,
+html[data-theme="dark"] .capacity-note,
+html[data-theme="dark"] .stage-description{ color: var(--text-2) !important; }
+
+
+
+/* === Fix: process-info box readability in Dark theme === */
+html[data-theme="dark"] .process-info{
+    background: rgba(37, 99, 235, 0.12) !important; /* soft indigo */
+    border: 1px solid rgba(167,180,216,0.22) !important;
+    color: var(--text-2) !important;
+}
+html[data-theme="dark"] .process-info .process-highlight{
+    color: #93c5fd !important; /* readable accent */
+}
+html[data-theme="dark"] .process-info i{
+    color: #93c5fd !important;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="container">
+<header>
+<div class="header-content">
+<div class="logo">
+<i class="fas fa-flask"></i>
+<h1><span data-i18n-en="Chemical Farm" data-i18n-fa="Chemical Farm">Chemical Farm</span></h1>
+</div>
+<div class="header-actions">
+<a class="hdr-btn home" href="index.html" title="Home">
+<i class="fas fa-home"></i>
+<span data-i18n-en="Home" data-i18n-fa="خانه">Home</span>
+</a>
+<button class="hdr-btn theme" id="themeToggle" title="Theme" type="button" aria-label="Toggle theme">
+    <i class="fas fa-moon"></i>
+    <span data-i18n-en="Theme" data-i18n-fa="تم">Theme</span>
+</button>
+<button class="hdr-btn lang" id="langToggle" title="Language" type="button">
+<i class="fas fa-language"></i>
+<span id="langLabel">EN</span>
+</button>
+</div>
+</div>
+</header>
+<div class="product-header">
+<div class="product-info">
+<div class="product-type"><span data-i18n-en="Platform Chemical" data-i18n-fa="ماده شیمیایی پلتفرمی">Platform Chemical</span></div>
+<h1 class="product-name">
+<i class="fas fa-flask"></i> <span data-i18n-en="1,4-Butanediol (BDO)" data-i18n-fa="1,4-بوتان‌دی‌ال (BDO)">1,4-Butanediol (BDO)</span>
+</h1>
+<div class="product-subtitle">
+<i class="fas fa-microscope"></i> C₄H₁₀O₂ | CAS 110-63-4
+</div>
+</div>
+<div class="safety-badge">
+<i class="fas fa-exclamation-triangle"></i>
+<span data-i18n-en="Irritant | Harmful if swallowed" data-i18n-fa="تهییج‌کننده | در صورت بلعیدن مضر">Irritant | Harmful if swallowed</span>
+</div>
+</div>
+<div class="product-stats">
+<div class="stat-card">
+<div class="stat-value"><span data-i18n-en="3.2M" data-i18n-fa="۳.۲ میلیون">3.2M</span></div>
+<div class="stat-label"><span data-i18n-en="Global Capacity (Tons/Y)" data-i18n-fa="ظرفیت جهانی (تن/سال)">Global Capacity (Tons/Y)</span></div>
+</div>
+<div class="stat-card">
+<div class="stat-value"><span data-i18n-en="$4.8B" data-i18n-fa="۴.۸ میلیارد دلار">$4.8B</span></div>
+<div class="stat-label"><span data-i18n-en="Market Value (2024)" data-i18n-fa="ارزش بازار (۲۰۲۴)">Market Value (2024)</span></div>
+</div>
+<div class="stat-card">
+<div class="stat-value"><span data-i18n-en="Diol" data-i18n-fa="دی‌ال">Diol</span></div>
+<div class="stat-label"><span data-i18n-en="Classification" data-i18n-fa="طبقه‌بندی">Classification</span></div>
+</div>
+</div>
+<div class="content-grid">
+<div class="main-content">
+<div class="section-card">
+<div class="section-header properties-header">
+<div class="section-icon">
+<i class="fas fa-vial"></i>
+</div>
+<h2 class="section-title"><span data-i18n-en="Chemical Properties" data-i18n-fa="خواص شیمیایی">Chemical Properties</span></h2>
+</div>
+<div class="property-grid">
+<div class="property-item">
+<div class="property-label"><i class="fas fa-weight-hanging"></i> <span data-i18n-en="Molecular Weight" data-i18n-fa="جرم مولکولی">Molecular Weight</span></div>
+<div class="property-value"><span data-i18n-en="90.12 g/mol" data-i18n-fa="90.12 گرم/مول">90.12 g/mol</span></div>
+</div>
+<div class="property-item">
+<div class="property-label"><i class="fas fa-temperature-high"></i> <span data-i18n-en="Boiling Point" data-i18n-fa="نقطه جوش">Boiling Point</span></div>
+<div class="property-value"><span data-i18n-en="230°C" data-i18n-fa="230°C">230°C</span></div>
+</div>
+<div class="property-item">
+<div class="property-label"><i class="fas fa-temperature-low"></i> <span data-i18n-en="Melting Point" data-i18n-fa="نقطه ذوب">Melting Point</span></div>
+<div class="property-value"><span data-i18n-en="-8°C" data-i18n-fa="-8°C">-8°C</span></div>
+</div>
+<div class="property-item">
+<div class="property-label"><i class="fas fa-ruler-combined"></i> <span data-i18n-en="Density" data-i18n-fa="چگالی">Density</span></div>
+<div class="property-value"><span data-i18n-en="1.017 g/cm³ at 20°C" data-i18n-fa="۱.۰۱۷ گرم/سانتی‌متر³ در ۲۰°C">1.017 g/cm³ at 20°C</span></div>
+</div>
+<div class="property-item">
+<div class="property-label"><i class="fas fa-tint"></i> <span data-i18n-en="Water Solubility" data-i18n-fa="حلالیت در آب">Water Solubility</span></div>
+<div class="property-value"><span data-i18n-en="Miscible" data-i18n-fa="کاملاً محلول/امتزاج‌پذیر">Miscible</span></div>
+</div>
+<div class="property-item">
+<div class="property-label"><i class="fas fa-fire"></i> <span data-i18n-en="Flash Point" data-i18n-fa="نقطه اشتعال">Flash Point</span></div>
+<div class="property-value"><span data-i18n-en="121°C (closed cup)" data-i18n-fa="۱۲۱°C (کاپ بسته)">121°C (closed cup)</span></div>
+</div>
+</div>
+</div>
+<div class="section-card">
+<div class="section-header hazard-header">
+<div class="section-icon">
+<i class="fas fa-exclamation-triangle"></i>
+</div>
+<h2 class="section-title"><span data-i18n-en="Hazard Classification" data-i18n-fa="طبقه‌بندی خطر">Hazard Classification</span></h2>
+</div>
+<div class="hazard-section">
+<h3 class="hazard-title">
+<i class="fas fa-skull-crossbones"></i>
+<span data-i18n-en="Irritant; harmful if swallowed or inhaled" data-i18n-fa="تهییج‌کننده؛ در صورت بلعیدن یا استنشاق مضر">Irritant; harmful if swallowed or inhaled</span>
+</h3>
+<p class="hazard-value">
+<span
+data-i18n-en="1,4-Butanediol is an irritant to skin, eyes, and respiratory system. It can cause drowsiness or dizziness if inhaled. Prolonged or repeated exposure can cause central nervous system effects. Keep away from heat, sparks, open flames and hot surfaces."
+data-i18n-fa="1,4-بوتان‌دی‌ال برای پوست، چشم و دستگاه تنفسی تهییج‌کننده است. در صورت استنشاق ممکن است باعث خواب‌آلودگی یا سرگیجه شود. مواجهه طولانی‌مدت یا مکرر می‌تواند باعث اختلالات سیستم عصبی مرکزی شود. از حرارت، جرقه‌ها، شعله‌های باز و سطوح داغ دور نگه دارید."
+>1,4-Butanediol is an irritant to skin, eyes, and respiratory system. It can cause drowsiness or dizziness if inhaled. Prolonged or repeated exposure can cause central nervous system effects. Keep away from heat, sparks, open flames and hot surfaces.</span>
+</p>
+</div>
+<div class="section-header health-header" style="margin-top: 25px;">
+<div class="section-icon">
+<i class="fas fa-heartbeat"></i>
+</div>
+<h2 class="section-title"><span data-i18n-en="Chronic Health Effects" data-i18n-fa="اثرات بلندمدت بر سلامت">Chronic Health Effects</span></h2>
+</div>
+<div class="health-section">
+<h3 class="health-title">
+<i class="fas fa-user-injured"></i>
+<span data-i18n-en="Repeated exposure effects" data-i18n-fa="اثرات مواجهه‌های مکرر">Repeated exposure effects</span>
+</h3>
+<p class="health-value">
+<span
+data-i18n-en="Repeated skin contact may cause irritation and defatting of the skin. Prolonged or repeated inhalation of vapors may cause respiratory irritation and central nervous system effects including headache, dizziness, and fatigue. Chronic exposure may affect liver and kidney function."
+data-i18n-fa="تماس مکرر پوستی ممکن است باعث تحریک و حذف چربی‌های پوست شود. استنشاق مکرر یا طولانی‌مدت بخارات ممکن است باعث تحریک تنفسی و اثرات سیستم عصبی مرکزی شامل سردرد، سرگیجه و خستگی شود. مواجهه مزمن ممکن است بر عملکرد کبد و کلیه تأثیر بگذارد."
+>Repeated skin contact may cause irritation and defatting of the skin. Prolonged or repeated inhalation of vapors may cause respiratory irritation and central nervous system effects including headache, dizziness, and fatigue. Chronic exposure may affect liver and kidney function.</span>
+</p>
+</div>
+</div>
+<div class="molecular-visualization">
+<div class="molecular-header">
+<div class="section-icon">
+<i class="fas fa-project-diagram"></i>
+</div>
+<h2 class="molecular-title"><span data-i18n-en="3D Molecular Structure" data-i18n-fa="ساختار مولکولی سه‌بعدی">3D Molecular Structure</span></h2>
+</div>
+<div class="molecular-diagram">
+<div id="molecular-canvas"></div>
+</div>
+<div class="molecular-info">
+<div class="molecular-label">
+<span class="color-swatch molecular-gray"></span>
+<span data-i18n-en="Carbon (C)" data-i18n-fa="کربن (C)">Carbon (C)</span>
+</div>
+<div class="molecular-label">
+<span class="color-swatch molecular-blue"></span>
+<span data-i18n-en="Oxygen (O)" data-i18n-fa="اکسیژن (O)">Oxygen (O)</span>
+</div>
+<div class="molecular-label">
+<span class="color-swatch molecular-white"></span>
+<span data-i18n-en="Hydrogen (H)" data-i18n-fa="هیدروژن (H)">Hydrogen (H)</span>
+</div>
+</div>
+<div class="capacity-note">
+<span
+data-i18n-en="Interactive 3D visualization of 1,4-butanediol (C₄H₁₀O₂) highlighting the four-carbon chain with hydroxyl groups (-OH) at both ends."
+data-i18n-fa="نمایش سه‌بعدی تعاملی از 1,4-بوتان‌دی‌ال (C₄H₁₀O₂) با تأکید بر زنجیره چهارکربنه با گروه‌های هیدروکسیل (-OH) در دو انتها."
+>Interactive 3D visualization of 1,4-butanediol (C₄H₁₀O₂) highlighting the four-carbon chain with hydroxyl groups (-OH) at both ends.</span>
+</div>
+</div>
+<div class="feedstock-section">
+<div class="feedstock-header">
+<div class="section-icon">
+<i class="fas fa-industry"></i>
+</div>
+<h2 class="feedstock-title"><span data-i18n-en="Production Process &amp; Capacity" data-i18n-fa="فرآیند تولید و ظرفیت">Production Process &amp; Capacity</span></h2>
+</div>
+<div class="process-info">
+<i class="fas fa-info-circle" style="margin-inline-end: 6px; color: var(--primary);"></i>
+<span data-i18n-en="1,4-Butanediol is produced via" data-i18n-fa="1,4-بوتان‌دی‌ال عمدتاً از طریق">1,4-Butanediol is produced via</span>
+<span class="process-highlight"><span data-i18n-en="multiple routes" data-i18n-fa="مسیرهای مختلف">multiple routes</span></span>:
+<span class="process-highlight"><span data-i18n-en="acetylene (Reppe) process" data-i18n-fa="فرآیند استیلن (Reppe)">acetylene (Reppe) process</span></span>,
+<span class="process-highlight"><span data-i18n-en="maleic anhydride" data-i18n-fa="آنیدرید مالئیک">maleic anhydride</span></span>,
+<span data-i18n-en="and" data-i18n-fa="و">and</span>
+<span class="process-highlight"><span data-i18n-en="butadiene oxidation" data-i18n-fa="اکسیداسیون بوتادین">butadiene oxidation</span></span><span data-i18n-en=". Regional economics and feedstock availability drive process selection." data-i18n-fa=" . اقتصاد منطقه‌ای و دسترسی به خوراک، انتخاب فرآیند را تعیین می‌کنند.">. Regional economics and feedstock availability drive process selection.</span>
+</div>
+<div class="process-selector">
+<button class="process-btn active" data-process="reppe"><span data-i18n-en="Acetylene (Reppe) Process" data-i18n-fa="فرآیند استیلن (Reppe)">Acetylene (Reppe) Process</span></button>
+<button class="process-btn" data-process="maleic"><span data-i18n-en="Maleic Anhydride Route" data-i18n-fa="مسیر آنیدرید مالئیک">Maleic Anhydride Route</span></button>
+<button class="process-btn" data-process="butadiene"><span data-i18n-en="Butadiene Oxidation" data-i18n-fa="اکسیداسیون بوتادین">Butadiene Oxidation</span></button>
+</div>
+<div class="process-stages">
+<div class="stage">
+<div class="stage-title">
+<span class="stage-number">1</span>
+<span data-i18n-en="Feedstock Preparation" data-i18n-fa="آماده‌سازی خوراک">Feedstock Preparation</span>
+</div>
+<div class="stage-description">
+<span data-i18n-en="High-purity acetylene is prepared with formaldehyde and a copper-based catalyst system in a controlled aqueous environment for selective synthesis of 1,4-butanediol intermediates." data-i18n-fa="استیلن با خلوص بالا همراه با فرمالدئید و سیستم کاتالیستی بر پایه مس در محیط آبی کنترل‌شده برای سنتز انتخابی واسطه‌های 1,4-بوتان‌دی‌ال آماده می‌شود.">High-purity acetylene is prepared with formaldehyde and a copper-based catalyst system in a controlled aqueous environment for selective synthesis of 1,4-butanediol intermediates.</span>
+</div>
+</div>
+<div class="stage">
+<div class="stage-title">
+<span class="stage-number">2</span>
+<span data-i18n-en="Catalytic Reaction" data-i18n-fa="واکنش کاتالیستی">Catalytic Reaction</span>
+</div>
+<div class="stage-description">
+<span data-i18n-en="The Reppe reaction occurs under pressure (20-30 bar) at moderate temperatures (80-120°C): acetylene + 2 formaldehyde → 1,4-butynediol, followed by hydrogenation to 1,4-butanediol using nickel or palladium catalysts." data-i18n-fa="واکنش Reppe تحت فشار (20-30 بار) در دماهای متوسط (80-120°C) رخ می‌دهد: استیلن + 2 فرمالدئید → 1,4-بوتین‌دی‌ال، که به دنبال آن هیدروژناسیون به 1,4-بوتان‌دی‌ال با استفاده از کاتالیست‌های نیکل یا پالادیوم انجام می‌شود.">The Reppe reaction occurs under pressure (20-30 bar) at moderate temperatures (80-120°C): acetylene + 2 formaldehyde → 1,4-butynediol, followed by hydrogenation to 1,4-butanediol using nickel or palladium catalysts.</span>
+</div>
+</div>
+<div class="stage">
+<div class="stage-title">
+<span class="stage-number">3</span>
+<span data-i18n-en="Product Separation" data-i18n-fa="جداسازی محصول">Product Separation</span>
+</div>
+<div class="stage-description">
+<span data-i18n-en="The crude product mixture undergoes multiple separation steps including filtration, extraction, and distillation to isolate pure 1,4-butanediol from reaction by-products and unreacted materials." data-i18n-fa="مخلوط محصول خام تحت مراحل مختلف جداسازی شامل فیلتراسیون، استخراج و تقطیر قرار می‌گیرد تا 1,4-بوتان‌دی‌ال خالص از محصولات جانبی واکنش و مواد واکنش‌نداده جدا شود.">The crude product mixture undergoes multiple separation steps including filtration, extraction, and distillation to isolate pure 1,4-butanediol from reaction by-products and unreacted materials.</span>
+</div>
+</div>
+<div class="stage">
+<div class="stage-title">
+<span class="stage-number">4</span>
+<span data-i18n-en="Purification &amp; Storage" data-i18n-fa="خالص‌سازی و ذخیره‌سازی">Purification &amp; Storage</span>
+</div>
+<div class="stage-description">
+<span data-i18n-en="Final purification via vacuum distillation and crystallization to achieve polymer-grade purity. Stored in stainless steel tanks under nitrogen blanket to prevent oxidation and moisture absorption." data-i18n-fa="خالص‌سازی نهایی از طریق تقطیر خلأ و کریستالیزاسیون برای دستیابی به خلوص درجه پلیمر. در مخازن فولاد ضدزنگ تحت پتوی نیتروژن برای جلوگیری از اکسیداسیون و جذب رطوبت ذخیره می‌شود.">Final purification via vacuum distillation and crystallization to achieve polymer-grade purity. Stored in stainless steel tanks under nitrogen blanket to prevent oxidation and moisture absorption.</span>
+</div>
+</div>
+</div>
+<div class="plant-capacity">
+<div class="capacity-card">
+<div class="capacity-title">
+<i class="fas fa-industry"></i> <span data-i18n-en="Minimum Capacity" data-i18n-fa="حداقل ظرفیت">Minimum Capacity</span>
+</div>
+<div class="capacity-value"><span data-i18n-en="10K T/Y" data-i18n-fa="۱۰ هزار تن/سال">10K T/Y</span></div>
+<div class="capacity-location"><span data-i18n-en="Specialty/satellite production units" data-i18n-fa="واحدهای تولید تخصصی/ماهواره‌ای">Specialty/satellite production units</span></div>
+</div>
+<div class="capacity-card">
+<div class="capacity-title">
+<i class="fas fa-industry"></i> <span data-i18n-en="Maximum Capacity" data-i18n-fa="حداکثر ظرفیت">Maximum Capacity</span>
+</div>
+<div class="capacity-value"><span data-i18n-en="250K T/Y" data-i18n-fa="۲۵۰ هزار تن/سال">250K T/Y</span></div>
+<div class="capacity-location"><span data-i18n-en="World-scale integrated complexes" data-i18n-fa="مجتمع‌های یکپارچه مقیاس جهانی">World-scale integrated complexes</span></div>
+</div>
+</div>
+<div class="capacity-note">
+<span
+data-i18n-en="Production routes vary by region: Reppe process dominates in regions with inexpensive acetylene (China), maleic anhydride route is preferred in areas with maleic anhydride surplus, while butadiene-based routes are used where butadiene is economical."
+data-i18n-fa="مسیرهای تولید بسته به منطقه متفاوت است: فرآیند Reppe در مناطقی با استیلن ارزان (چین) غالب است، مسیر آنیدرید مالئیک در مناطقی با مازاد آنیدرید مالئیک ترجیح داده می‌شود، در حالی که مسیرهای مبتنی بر بوتادین در جایی که بوتادین از نظر اقتصادی مقرون‌به‌صرفه است استفاده می‌شوند."
+>Production routes vary by region: Reppe process dominates in regions with inexpensive acetylene (China), maleic anhydride route is preferred in areas with maleic anhydride surplus, while butadiene-based routes are used where butadiene is economical.</span>
+</div>
+</div>
+<div class="applications-section">
+<div class="applications-header">
+<div class="section-icon">
+<i class="fas fa-building"></i>
+</div>
+<h2 class="applications-title"><span data-i18n-en="Industry Applications" data-i18n-fa="کاربردهای صنعتی">Industry Applications</span></h2>
+</div>
+<div class="industry-tags">
+<div class="industry-tag"><span data-i18n-en="PBT Polyester" data-i18n-fa="پلی‌استر PBT">PBT Polyester</span></div>
+<div class="industry-tag"><span data-i18n-en="PTMEG (Polyurethane Spandex)" data-i18n-fa="PTMEG (اسپاندکس پلی‌اورتان)">PTMEG (Polyurethane Spandex)</span></div>
+<div class="industry-tag"><span data-i18n-en="GBL (Gamma-Butyrolactone)" data-i18n-fa="GBL (گاما-بوتیروالکتون)">GBL (Gamma-Butyrolactone)</span></div>
+<div class="industry-tag"><span data-i18n-en="THF (Tetrahydrofuran)" data-i18n-fa="THF (تتراهیدروفوران)">THF (Tetrahydrofuran)</span></div>
+<div class="industry-tag"><span data-i18n-en="Coatings &amp; Adhesives" data-i18n-fa="پوشش‌ها و چسب‌ها">Coatings &amp; Adhesives</span></div>
+</div>
+<div class="application-chart">
+<canvas height="220" id="applicationsChart" width="400"></canvas>
+</div>
+<div class="chart-legend">
+<div class="legend-item">
+<span class="legend-color" style="background-color: #2563eb;"></span>
+<span><span data-i18n-en="PTMEG/Polyurethanes (40%)" data-i18n-fa="PTMEG/پلی‌اورتان‌ها (۴۰٪)">PTMEG/Polyurethanes (40%)</span></span>
+</div>
+<div class="legend-item">
+<span class="legend-color" style="background-color: #8b5cf6;"></span>
+<span><span data-i18n-en="PBT Polyester (25%)" data-i18n-fa="پلی‌استر PBT (۲۵٪)">PBT Polyester (25%)</span></span>
+</div>
+<div class="legend-item">
+<span class="legend-color" style="background-color: #10b981;"></span>
+<span><span data-i18n-en="GBL (15%)" data-i18n-fa="GBL (۱۵٪)">GBL (15%)</span></span>
+</div>
+<div class="legend-item">
+<span class="legend-color" style="background-color: #f59e0b;"></span>
+<span><span data-i18n-en="THF (12%)" data-i18n-fa="THF (۱۲٪)">THF (12%)</span></span>
+</div>
+<div class="legend-item">
+<span class="legend-color" style="background-color: #ef4444;"></span>
+<span><span data-i18n-en="Others (8%)" data-i18n-fa="سایر (۸٪)">Others (8%)</span></span>
+</div>
+</div>
+</div>
+<div class="section-card">
+<div class="section-header license-header">
+<div class="section-icon">
+<i class="fas fa-certificate"></i>
+</div>
+<h2 class="section-title"><span data-i18n-en="Top Technology License Providers" data-i18n-fa="برترین لایسنسورها/ارائه‌دهندگان فناوری">Top Technology License Providers</span></h2>
+</div>
+<p style="color: #475569; margin-bottom: 15px; line-height: 1.5;">
+<span data-i18n-en="Leading providers of 1,4-butanediol technology with focus on acetylene, maleic anhydride, and butadiene-based production routes." data-i18n-fa="ارائه‌دهندگان اصلی فناوری 1,4-بوتان‌دی‌ال با تمرکز بر مسیرهای تولید مبتنی بر استیلن، آنیدرید مالئیک و بوتادین.">Leading providers of 1,4-butanediol technology with focus on acetylene, maleic anhydride, and butadiene-based production routes.</span>
+</p>
+<div class="license-providers">
+<div class="provider-item">
+<div class="provider-rank">1</div>
+<div class="provider-info">
+<div class="provider-name">Linde Engineering / BASF</div>
+<div class="provider-details"><span data-i18n-en="Reppe Technology Leader | Global" data-i18n-fa="رهبر فناوری Reppe | جهانی">Reppe Technology Leader | Global</span></div>
+<div class="provider-licenses"><span data-i18n-en="Acetylene-based process technology" data-i18n-fa="فناوری فرآیند مبتنی بر استیلن">Acetylene-based process technology</span></div>
+</div>
+</div>
+<div class="provider-item">
+<div class="provider-rank">2</div>
+<div class="provider-info">
+<div class="provider-name">Ashland / ISP Technologies</div>
+<div class="provider-details"><span data-i18n-en="Integrated BDO/THF/PTMEG | USA/Global" data-i18n-fa="BDO/THF/PTMEG یکپارچه | آمریکا/جهانی">Integrated BDO/THF/PTMEG | USA/Global</span></div>
+<div class="provider-licenses"><span data-i18n-en="End-to-end value chain optimization" data-i18n-fa="بهینه‌سازی کل زنجیره ارزش">End-to-end value chain optimization</span></div>
+</div>
+</div>
+<div class="provider-item">
+<div class="provider-rank">3</div>
+<div class="provider-info">
+<div class="provider-name">Mitsubishi Chemical Corporation</div>
+<div class="provider-details"><span data-i18n-en="Maleic Anhydride Route | Japan/Global" data-i18n-fa="مسیر آنیدرید مالئیک | ژاپن/جهانی">Maleic Anhydride Route | Japan/Global</span></div>
+<div class="provider-licenses"><span data-i18n-en="Proprietary maleic anhydride technology" data-i18n-fa="فناوری اختصاصی آنیدرید مالئیک">Proprietary maleic anhydride technology</span></div>
+</div>
+</div>
+<div class="provider-item">
+<div class="provider-rank">4</div>
+<div class="provider-info">
+<div class="provider-name">Dairen Chemical Corporation (DCC)</div>
+<div class="provider-details"><span data-i18n-en="Acetylene-Based BDO | Taiwan/Global" data-i18n-fa="BDO مبتنی بر استیلن | تایوان/جهانی">Acetylene-Based BDO | Taiwan/Global</span></div>
+<div class="provider-licenses"><span data-i18n-en="Integrated THF/GBL production" data-i18n-fa="تولید یکپارچه THF/GBL">Integrated THF/GBL production</span></div>
+</div>
+</div>
+<div class="provider-item">
+<div class="provider-rank">5</div>
+<div class="provider-info">
+<div class="provider-name">Invista (Koch Industries)</div>
+<div class="provider-details"><span data-i18n-en="Butadiene &amp; Acetylene Routes | Global" data-i18n-fa="مسیرهای بوتادین و استیلن | جهانی">Butadiene &amp; Acetylene Routes | Global</span></div>
+<div class="provider-licenses"><span data-i18n-en="Vertically integrated spandex value chain" data-i18n-fa="زنجیره ارزش اسپاندکس به‌صورت عمودی یکپارچه">Vertically integrated spandex value chain</span></div>
+</div>
+</div>
+<div class="provider-item">
+<div class="provider-rank">6</div>
+<div class="provider-info">
+<div class="provider-name">Sinopec / Chinese Engineering Firms</div>
+<div class="provider-details"><span data-i18n-en="Cost-Optimized Reppe | China/Asia" data-i18n-fa="Reppe بهینه‌شده از نظر هزینه | چین/آسیا">Cost-Optimized Reppe | China/Asia</span></div>
+<div class="provider-licenses"><span data-i18n-en="Regional implementation expertise" data-i18n-fa="تخصص اجرایی منطقه‌ای">Regional implementation expertise</span></div>
+</div>
+</div>
+<div class="provider-item">
+<div class="provider-rank">7</div>
+<div class="provider-info">
+<div class="provider-name">Huntsman Corporation</div>
+<div class="provider-details"><span data-i18n-en="Integrated Polyurethanes &amp; BDO | USA/Global" data-i18n-fa="پلی‌اورتان‌ها و BDO یکپارچه | آمریکا/جهانی">Integrated Polyurethanes &amp; BDO | USA/Global</span></div>
+<div class="provider-licenses"><span data-i18n-en="Downstream derivatives focus" data-i18n-fa="تمرکز بر مشتقات پایین‌دستی">Downstream derivatives focus</span></div>
+</div>
+</div>
+<div class="provider-item">
+<div class="provider-rank">8</div>
+<div class="provider-info">
+<div class="provider-name">KBR / Technip Energies" data-i18n-en="Engineering &amp; Integration | Global" data-i18n-fa="مهندسی و یکپارچه‌سازی | جهانی">
+Engineering &amp; Integration | Global
+</div>
+<div class="provider-licenses"><span data-i18n-en="FEED/EPC for BDO complexes" data-i18n-fa="FEED/EPC برای مجتمع‌های BDO">FEED/EPC for BDO complexes</span></div>
+</div>
+</div>
+</div>
+</div>
+</div><!-- /main-content -->
+<div class="sidebar">
+<div class="market-insights">
+<div class="market-header">
+<div class="section-icon">
+<i class="fas fa-chart-pie"></i>
+</div>
+<h2 class="market-title"><span data-i18n-en="Global Demand Analysis" data-i18n-fa="تحلیل تقاضای جهانی">Global Demand Analysis</span></h2>
+</div>
+<p class="market-description">
+<span
+data-i18n-en="Asia-Pacific is the largest market for 1,4-butanediol driven by strong demand in polyurethane elastomers, PBT engineering plastics, and GBL applications. China alone accounts for over 50% of global consumption. North America and Europe show steady growth in high-performance polymers and coatings. The market is characterized by tight integration with THF and PTMEG production."
+data-i18n-fa="آسیا-اقیانوسیه بزرگ‌ترین بازار 1,4-بوتان‌دی‌ال است که توسط تقاضای قوی در الاستومرهای پلی‌اورتان، پلاستیک‌های مهندسی PBT و کاربردهای GBL هدایت می‌شود. تنها چین بیش از ۵۰٪ مصرف جهانی را به خود اختصاص می‌دهد. آمریکای شمالی و اروپا رشد پایداری در پلیمرهای با عملکرد بالا و پوشش‌ها نشان می‌دهند. این بازار با یکپارچگی تنگاتنگ با تولید THF و PTMEG مشخص می‌شود."
+>Asia-Pacific is the largest market for 1,4-butanediol driven by strong demand in polyurethane elastomers, PBT engineering plastics, and GBL applications. China alone accounts for over 50% of global consumption. North America and Europe show steady growth in high-performance polymers and coatings. The market is characterized by tight integration with THF and PTMEG production.</span>
+</p>
+<div class="demand-chart-container">
+<canvas height="250" id="demandChart" width="400"></canvas>
+</div>
+<div class="chart-legend">
+<div class="legend-item">
+<span class="legend-color" style="background-color: #2563eb;"></span>
+<span><span data-i18n-en="Asia-Pacific (55%)" data-i18n-fa="آسیا-اقیانوسیه (۵۵٪)">Asia-Pacific (55%)</span></span>
+</div>
+<div class="legend-item">
+<span class="legend-color" style="background-color: #8b5cf6;"></span>
+<span><span data-i18n-en="North America (20%)" data-i18n-fa="آمریکای شمالی (۲۰٪)">North America (20%)</span></span>
+</div>
+<div class="legend-item">
+<span class="legend-color" style="background-color: #10b981;"></span>
+<span><span data-i18n-en="Europe (18%)" data-i18n-fa="اروپا (۱۸٪)">Europe (18%)</span></span>
+</div>
+<div class="legend-item">
+<span class="legend-color" style="background-color: #f59e0b;"></span>
+<span><span data-i18n-en="Middle East &amp; Others (7%)" data-i18n-fa="خاورمیانه و سایرین (۷٪)">Middle East &amp; Others (7%)</span></span>
+</div>
+</div>
+</div>
+<div class="key-commodity">
+<div class="companies-header">
+<div class="section-icon">
+<i class="fas fa-industry"></i>
+</div>
+<h2 class="companies-title"><span data-i18n-en="Production Capacity Distribution" data-i18n-fa="توزیع ظرفیت تولید">Production Capacity Distribution</span></h2>
+</div>
+<div class="property-grid" style="grid-template-columns: 1fr;">
+<div class="property-item">
+<div class="property-label"><span data-i18n-en="Global Capacity" data-i18n-fa="ظرفیت جهانی">Global Capacity</span></div>
+<div class="property-value" style="color: var(--primary);"><span data-i18n-en="3.2M T/Y" data-i18n-fa="۳.۲ میلیون تن/سال">3.2M T/Y</span></div>
+</div>
+<div class="property-item">
+<div class="property-label"><span data-i18n-en="Asia-Pacific Share" data-i18n-fa="سهم آسیا-اقیانوسیه">Asia-Pacific Share</span></div>
+<div class="property-value" style="color: var(--primary);">55%</div>
+</div>
+<div class="property-item">
+<div class="property-label"><span data-i18n-en="North America Share" data-i18n-fa="سهم آمریکای شمالی">North America Share</span></div>
+<div class="property-value" style="color: var(--primary);">20%</div>
+</div>
+<div class="property-item">
+<div class="property-label"><span data-i18n-en="Europe Share" data-i18n-fa="سهم اروپا">Europe Share</span></div>
+<div class="property-value" style="color: var(--primary);">18%</div>
+</div>
+<div class="property-item">
+<div class="property-label"><span data-i18n-en="Other Regions" data-i18n-fa="سایر مناطق">Other Regions</span></div>
+<div class="property-value" style="color: var(--primary);">7%</div>
+</div>
+</div>
+</div>
+<div class="section-card">
+<div class="section-header">
+<div class="section-icon" style="background: rgba(239, 115, 51, 0.1); color: #ef7333;">
+<i class="fas fa-calculator"></i>
+</div>
+<h2 class="section-title"><span data-i18n-en="Capital Expenditure Analysis" data-i18n-fa="تحلیل هزینه سرمایه‌گذاری (CAPEX)">Capital Expenditure Analysis</span></h2>
+</div>
+<p style="color: #475569; margin-bottom: 20px; line-height: 1.5;">
+<span data-i18n-en="Estimated investment requirements for 1,4-butanediol production facilities depend on production route selection, integration level with upstream/downstream units, regional construction costs, catalyst system selection, and environmental compliance requirements." data-i18n-fa="برآورد سرمایه‌گذاری برای تأسیسات تولید 1,4-بوتان‌دی‌ال به انتخاب مسیر تولید، سطح یکپارچگی با واحدهای بالادستی/پایین‌دستی، هزینه‌های ساخت منطقه‌ای، انتخاب سیستم کاتالیست و الزامات انطباق زیست‌محیطی بستگی دارد.">Estimated investment requirements for 1,4-butanediol production facilities depend on production route selection, integration level with upstream/downstream units, regional construction costs, catalyst system selection, and environmental compliance requirements.</span>
+</p>
+<div style="display: flex; flex-direction: column; gap: 25px;">
+<div style="background: #f8fafc; border-radius: 16px; padding: 20px; border-left: 4px solid #ef7333;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+<h3 style="font-weight: 600; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+<i class="fas fa-industry" style="color: #ef7333;"></i> <span data-i18n-en="Standard CAPEX (50K T/Y Plant)" data-i18n-fa="CAPEX استاندارد (واحد ۵۰ هزار تن/سال)">Standard CAPEX (50K T/Y Plant)</span>
+</h3>
+<div style="background: rgba(239, 115, 51, 0.1); color: #ef7333; padding: 5px 12px; border-radius: 12px; font-weight: 600;">
+<span data-i18n-en="Developed Regions" data-i18n-fa="مناطق توسعه‌یافته">Developed Regions</span>
+</div>
+</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; font-weight: 700; color: #ef7333; margin-bottom: 10px; text-align: center;">
+<span data-i18n-en="$150-220M" data-i18n-fa="۱۵۰ تا ۲۲۰ میلیون دلار">$150-220M</span>
+</div>
+<div style="text-align: center; color: #64748b; font-size: 0.95rem; margin-bottom: 15px;">
+<span data-i18n-en="Indicative range for Reppe process with integration to downstream PTMEG" data-i18n-fa="بازه تقریبی برای فرآیند Reppe با یکپارچه‌سازی به PTMEG پایین‌دستی">Indicative range for Reppe process with integration to downstream PTMEG</span>
+</div>
+<div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; position: relative;">
+<div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform: translateX(-100%); animation: shimmer 1.5s infinite;"></div>
+<div style="height: 100%; width: 75%; background: linear-gradient(to right, #f97316, #ef7333); border-radius: 3px;"></div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+<div style="background: #f8fafc; border-radius: 12px; padding: 15px; border-left: 3px solid #f97316; transition: var(--transition); position: relative; overflow: hidden;">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #ef7333; font-weight: 600;">
+<i class="fas fa-cogs"></i> <span data-i18n-en="Process Technology" data-i18n-fa="فناوری فرآیند">Process Technology</span>
+</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--dark);">
+<span data-i18n-en="$22-35M" data-i18n-fa="۲۲ تا ۳۵ میلیون دلار">$22-35M</span>
+</div>
+<div style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">
+<span data-i18n-en="Technology license, catalyst systems, process design" data-i18n-fa="لایسنس فناوری، سامانه‌های کاتالیست، طراحی فرآیند">Technology license, catalyst systems, process design</span>
+</div>
+</div>
+<div style="background: #f8fafc; border-radius: 12px; padding: 15px; border-left: 3px solid #f59e0b; transition: var(--transition); position: relative; overflow: hidden;">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #f59e0b; font-weight: 600;">
+<i class="fas fa-hard-hat"></i> <span data-i18n-en="Construction" data-i18n-fa="ساخت و اجرا">Construction</span>
+</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--dark);">
+<span data-i18n-en="$40-60M" data-i18n-fa="۴۰ تا ۶۰ میلیون دلار">$40-60M</span>
+</div>
+<div style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">
+<span data-i18n-en="Civil works, structural steel, piping, specialized materials" data-i18n-fa="عملیات عمرانی، سازه فلزی، لوله‌کشی، مواد تخصصی">Civil works, structural steel, piping, specialized materials</span>
+</div>
+</div>
+<div style="background: #f8fafc; border-radius: 12px; padding: 15px; border-left: 3px solid #f59e0b; transition: var(--transition); position: relative; overflow: hidden;">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #f59e0b; font-weight: 600;">
+<i class="fas fa-cube"></i> <span data-i18n-en="Equipment &amp; Machinery" data-i18n-fa="تجهیزات و ماشین‌آلات">Equipment &amp; Machinery</span>
+</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--dark);">
+<span data-i18n-en="$60-85M" data-i18n-fa="۶۰ تا ۸۵ میلیون دلار">$60-85M</span>
+</div>
+<div style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">
+<span data-i18n-en="Reactor systems, hydrogenation units, distillation columns, control systems" data-i18n-fa="سامانه‌های راکتور، واحدهای هیدروژناسیون، ستون‌های تقطیر، سامانه‌های کنترل">Reactor systems, hydrogenation units, distillation columns, control systems</span>
+</div>
+</div>
+<div style="background: #f8fafc; border-radius: 12px; padding: 15px; border-left: 3px solid #f97316; transition: var(--transition); position: relative; overflow: hidden;">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #f97316; font-weight: 600;">
+<i class="fas fa-project-diagram"></i> <span data-i18n-en="Engineering &amp; Services" data-i18n-fa="مهندسی و خدمات">Engineering &amp; Services</span>
+</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--dark);">
+<span data-i18n-en="$20-30M" data-i18n-fa="۲۰ تا ۳۰ میلیون دلار">$20-30M</span>
+</div>
+<div style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">
+<span data-i18n-en="Design, project management, commissioning, training" data-i18n-fa="طراحی، مدیریت پروژه، راه‌اندازی، آموزش">Design, project management, commissioning, training</span>
+</div>
+</div>
+</div>
+<div style="background: #fff7ed; border-radius: 12px; padding: 15px; border-left: 3px solid #f97316;">
+<div style="display: flex; align-items: flex-start; gap: 10px;">
+<i class="fas fa-chart-line" style="color: #f97316; font-size: 1.2rem; margin-top: 3px;"></i>
+<div>
+<div style="font-weight: 600; color: #c2410c; margin-bottom: 5px;">
+<span data-i18n-en="Market Context" data-i18n-fa="زمینه بازار">Market Context</span>
+</div>
+<div style="color: #78350f; line-height: 1.5;">
+<span data-i18n-en="1,4-Butanediol demand is primarily driven by high-performance polymers (PBT, polyurethanes), with significant growth in thermoplastic elastomers and electronic chemicals. The market is evolving toward greater integration with PTMEG and spandex value chains."
+data-i18n-fa="تقاضای 1,4-بوتان‌دی‌ال عمدتاً توسط پلیمرهای با عملکرد بالا (PBT، پلی‌اورتان‌ها) هدایت می‌شود، با رشد قابل توجهی در الاستومرهای ترموپلاستیک و مواد شیمیایی الکترونیکی. این بازار در حال تحول به سمت یکپارچگی بیشتر با زنجیره‌های ارزش PTMEG و اسپاندکس است."
+>1,4-Butanediol demand is primarily driven by high-performance polymers (PBT, polyurethanes), with significant growth in thermoplastic elastomers and electronic chemicals. The market is evolving toward greater integration with PTMEG and spandex value chains.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="key-companies">
+<div class="companies-header">
+<div class="section-icon">
+<i class="fas fa-city"></i>
+</div>
+<h2 class="companies-title"><span data-i18n-en="Key Manufacturers" data-i18n-fa="تولیدکنندگان کلیدی">Key Manufacturers</span></h2>
+</div>
+<ul class="company-list">
+<li class="company-item">
+<div class="company-flag"><span data-i18n-en="US" data-i18n-fa="آمریکا">US</span></div>
+<div>
+<div class="company-name">Ashland / INEOS</div>
+<div class="company-country"><span data-i18n-en="Integrated BDO/THF/PTMEG producer" data-i18n-fa="تولیدکننده یکپارچه BDO/THF/PTMEG">Integrated BDO/THF/PTMEG producer</span></div>
+</div>
+</li>
+<li class="company-item">
+<div class="company-flag"><span data-i18n-en="CN" data-i18n-fa="چین">CN</span></div>
+<div>
+<div class="company-name">Shanxi Sanwei Group</div>
+<div class="company-country"><span data-i18n-en="China's largest BDO producer via Reppe process" data-i18n-fa="بزرگ‌ترین تولیدکننده BDO چین از طریق فرآیند Reppe">China's largest BDO producer via Reppe process</span></div>
+</div>
+</li>
+<li class="company-item">
+<div class="company-flag"><span data-i18n-en="JP" data-i18n-fa="ژاپن">JP</span></div>
+<div>
+<div class="company-name">Mitsubishi Chemical Corporation</div>
+<div class="company-country"><span data-i18n-en="Maleic anhydride-based BDO leader" data-i18n-fa="رهبر BDO مبتنی بر آنیدرید مالئیک">Maleic anhydride-based BDO leader</span></div>
+</div>
+</li>
+<li class="company-item">
+<div class="company-flag"><span data-i18n-en="TW" data-i18n-fa="تایوان">TW</span></div>
+<div>
+<div class="company-name">Dairen Chemical Corporation (DCC)</div>
+<div class="company-country"><span data-i18n-en="Integrated BDO derivatives producer" data-i18n-fa="تولیدکننده مشتقات یکپارچه BDO">Integrated BDO derivatives producer</span></div>
+</div>
+</li>
+<li class="company-item">
+<div class="company-flag"><span data-i18n-en="DE" data-i18n-fa="آلمان">DE</span></div>
+<div>
+<div class="company-name">BASF SE</div>
+<div class="company-country"><span data-i18n-en="Integrated chemical value chain with BDO" data-i18n-fa="زنجیره ارزش شیمیایی یکپارچه با BDO">Integrated chemical value chain with BDO</span></div>
+</div>
+</li>
+<li class="company-item">
+<div class="company-flag"><span data-i18n-en="KR" data-i18n-fa="کره جنوبی">KR</span></div>
+<div>
+<div class="company-name">PTG (SK Innovation)</div>
+<div class="company-country"><span data-i18n-en="PTMEG-focused BDO producer" data-i18n-fa="تولیدکننده BDO با تمرکز بر PTMEG">PTMEG-focused BDO producer</span></div>
+</div>
+</li>
+</ul>
+</div>
+</div><!-- /sidebar -->
+</div><!-- /content-grid -->
+<div class="design-credit">
+<div class="credit-header">
+<div class="credit-icon">
+<i class="fas fa-hard-hat"></i>
+</div>
+<h2 class="credit-title"><span data-i18n-en="Engineering Design Credit" data-i18n-fa="هزینه طراحی مهندسی">Engineering Design Credit</span></h2>
+</div>
+<div class="credit-details">
+<p><span data-i18n-en="This chemical database entry was developed and designed by Ali Hosseinpour." data-i18n-fa="این پایگاه‌داده شیمیایی توسط علی حسین‌پور گردآوری و تدوین شده است.">This chemical database entry was developed and designed by Ali Hosseinpour.</span></p>
+</div>
+<div class="contact-info">
+<a class="contact-item" href="tel:+989162926778">
+<i class="fas fa-phone"></i>
+<span>+989162926778</span>
+</a>
+<a class="contact-item" href="mailto:hosseinpour431@gmail.com">
+<i class="fas fa-envelope"></i>
+<span>hosseinpour431@gmail.com</span>
+</a>
+</div>
+</div>
+<footer>
+<p><span data-i18n-en="Chemical Farm © 2025 | Comprehensive chemical intelligence for industry professionals" data-i18n-fa="کمیکال فارم © 2025| هوشمندی جامع شیمی برای متخصصان صنعت">Chemical Farm © 2025 | Comprehensive chemical intelligence for industry professionals</span></p>
+<p class="footer-note"><span data-i18n-en="Data verified through authoritative chemical databases and industry reports" data-i18n-fa="داده‌ها با اتکا به پایگاه‌های معتبر شیمیایی و گزارش‌های صنعتی راستی‌آزمایی شده‌اند">Data verified through authoritative chemical databases and industry reports</span></p>
+</footer>
+</div>
+<script>
+        // Initialize all visualizations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize molecular visualization with Three.js
+            initMolecularVisualization();
+            // Initialize 2D demand chart
+            initDemandPieChart();
+            // Initialize 2D applications chart
+            initApplicationsPieChart();
+            // Add interactive elements to material tags
+            document.querySelectorAll('.material-tag').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const material = this.textContent;
+                    const si = document.getElementById('search-input'); if (si) si.value = material;
+                    alert(`Searching for products related to ${material}...`);
+                });
+            });
+            // Add interactive elements to company items
+            document.querySelectorAll('.company-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const companyName = this.querySelector('.company-name').textContent;
+                    alert(`Viewing detailed information for ${companyName}...`);
+                });
+            });
+            // Process selector functionality (Bilingual-safe)
+const processTemplates = {
+    reppe: {
+        infoHTML: `
+            <i class="fas fa-info-circle" style="margin-inline-end: 6px; color: var(--primary);"></i>
+            <span data-i18n-en="1,4-Butanediol is produced via " data-i18n-fa="1,4-بوتان‌دی‌ال عمدتاً از طریق ">1,4-Butanediol is produced via </span>
+            <span class="process-highlight"><span data-i18n-en="multiple routes" data-i18n-fa="مسیرهای مختلف">multiple routes</span></span>:
+            <span class="process-highlight"><span data-i18n-en="acetylene (Reppe) process" data-i18n-fa="فرآیند استیلن (Reppe)">acetylene (Reppe) process</span></span>,
+            <span class="process-highlight"><span data-i18n-en="maleic anhydride" data-i18n-fa="آنیدرید مالئیک">maleic anhydride</span></span>,
+            <span data-i18n-en=" and " data-i18n-fa=" و ">and</span>
+            <span class="process-highlight"><span data-i18n-en="butadiene oxidation" data-i18n-fa="اکسیداسیون بوتادین">butadiene oxidation</span></span>.
+            <span data-i18n-en=" Regional economics and feedstock availability drive process selection." data-i18n-fa=" اقتصاد منطقه‌ای و دسترسی به خوراک، انتخاب فرآیند را تعیین می‌کنند.">Regional economics and feedstock availability drive process selection.</span>
+        `,
+        stages: [
+            {
+                en: "High-purity acetylene is prepared with formaldehyde and a copper-based catalyst system in a controlled aqueous environment for selective synthesis of 1,4-butanediol intermediates.",
+                fa: "استیلن با خلوص بالا همراه با فرمالدئید و سیستم کاتالیستی بر پایه مس در محیط آبی کنترل‌شده برای سنتز انتخابی واسطه‌های 1,4-بوتان‌دی‌ال آماده می‌شود."
+            },
+            {
+                en: "The Reppe reaction occurs under pressure (20-30 bar) at moderate temperatures (80-120°C): acetylene + 2 formaldehyde → 1,4-butynediol, followed by hydrogenation to 1,4-butanediol using nickel or palladium catalysts.",
+                fa: "واکنش Reppe تحت فشار (20-30 بار) در دماهای متوسط (80-120°C) رخ می‌دهد: استیلن + 2 فرمالدئید → 1,4-بوتین‌دی‌ال، که به دنبال آن هیدروژناسیون به 1,4-بوتان‌دی‌ال با استفاده از کاتالیست‌های نیکل یا پالادیوم انجام می‌شود."
+            },
+            {
+                en: "The crude product mixture undergoes multiple separation steps including filtration, extraction, and distillation to isolate pure 1,4-butanediol from reaction by-products and unreacted materials.",
+                fa: "مخلوط محصول خام تحت مراحل مختلف جداسازی شامل فیلتراسیون، استخراج و تقطیر قرار می‌گیرد تا 1,4-بوتان‌دی‌ال خالص از محصولات جانبی واکنش و مواد واکنش‌نداده جدا شود."
+            },
+            {
+                en: "Final purification via vacuum distillation and crystallization to achieve polymer-grade purity. Stored in stainless steel tanks under nitrogen blanket to prevent oxidation and moisture absorption.",
+                fa: "خالص‌سازی نهایی از طریق تقطیر خلأ و کریستالیزاسیون برای دستیابی به خلوص درجه پلیمر. در مخازن فولاد ضدزنگ تحت پتوی نیتروژن برای جلوگیری از اکسیداسیون و جذب رطوبت ذخیره می‌شود."
+            }
+        ]
+    },
+    maleic: {
+        infoHTML: `
+            <i class="fas fa-info-circle" style="margin-inline-end: 6px; color: var(--primary);"></i>
+            <span data-i18n-en="1,4-Butanediol is produced via " data-i18n-fa="1,4-بوتان‌دی‌ال عمدتاً از طریق ">1,4-Butanediol is produced via </span>
+            <span class="process-highlight"><span data-i18n-en="multiple routes" data-i18n-fa="مسیرهای مختلف">multiple routes</span></span>:
+            <span class="process-highlight"><span data-i18n-en="maleic anhydride route" data-i18n-fa="مسیر آنیدرید مالئیک">maleic anhydride route</span></span>,
+            <span data-i18n-en=" acetylene (Reppe) process, and " data-i18n-fa=" فرآیند استیلن (Reppe)، و ">acetylene (Reppe) process, and</span>
+            <span class="process-highlight"><span data-i18n-en="butadiene oxidation" data-i18n-fa="اکسیداسیون بوتادین">butadiene oxidation</span></span>.
+            <span data-i18n-en=" This route is preferred where maleic anhydride is readily available." data-i18n-fa=" این مسیر در جایی که آنیدرید مالئیک به راحتی در دسترس است ترجیح داده می‌شود.">This route is preferred where maleic anhydride is readily available.</span>
+        `,
+        stages: [
+            {
+                en: "Maleic anhydride and hydrogen are fed to a fixed-bed reactor with a catalyst system (typically Pd-based) for selective hydrogenation under controlled temperature and pressure conditions.",
+                fa: "آنیدرید مالئیک و هیدروژن به یک راکتور بستر ثابت با سیستم کاتالیستی (عمدتاً بر پایه Pd) برای هیدروژناسیون انتخابی تحت شرایط کنترل‌شده دما و فشار تغذیه می‌شوند."
+            },
+            {
+                en: "Hydrogenation occurs in multiple steps: maleic anhydride → succinic anhydride → γ-butyrolactone (GBL) → 1,4-butanediol, with precise temperature control to ensure high selectivity and yield.",
+                fa: "هیدروژناسیون در مراحل متعددی رخ می‌دهد: آنیدرید مالئیک → آنیدرید سوکسینیک → گاما-بوتیروالکتون (GBL) → 1,4-بوتان‌دی‌ال، با کنترل دقیق دما برای اطمینان از گزینش‌پذیری و بازده بالا."
+            },
+            {
+                en: "Reaction mixture undergoes separation via distillation columns and extraction systems to separate 1,4-butanediol from intermediate products, water, and unreacted materials.",
+                fa: "مخلوط واکنش تحت جداسازی از طریق ستون‌های تقطیر و سیستم‌های استخراج قرار می‌گیرد تا 1,4-بوتان‌دی‌ال از محصولات واسطه، آب و مواد واکنش‌نداده جدا شود."
+            },
+            {
+                en: "Final purification via high-efficiency distillation and possibly crystallization. Product is stabilized with antioxidants and stored in stainless steel tanks with nitrogen blanketing.",
+                fa: "خالص‌سازی نهایی از طریق تقطیر با کارایی بالا و احتمالاً کریستالیزاسیون. محصول با آنتی‌اکسیدان‌ها پایدار شده و در مخازن فولاد ضدزنگ تحت پتوی نیتروژن ذخیره می‌شود."
+            }
+        ]
+    },
+    butadiene: {
+        infoHTML: `
+            <i class="fas fa-info-circle" style="margin-inline-end: 6px; color: var(--primary);"></i>
+            <span data-i18n-en="1,4-Butanediol is produced via " data-i18n-fa="1,4-بوتان‌دی‌ال عمدتاً از طریق ">1,4-Butanediol is produced via </span>
+            <span class="process-highlight"><span data-i18n-en="multiple routes" data-i18n-fa="مسیرهای مختلف">multiple routes</span></span>:
+            <span class="process-highlight"><span data-i18n-en="acetylene (Reppe) process" data-i18n-fa="فرآیند استیلن (Reppe)">acetylene (Reppe) process</span></span>,
+            <span class="process-highlight"><span data-i18n-en="maleic anhydride route" data-i18n-fa="مسیر آنیدرید مالئیک">maleic anhydride route</span></span>,
+            <span data-i18n-en=" and " data-i18n-fa=" و ">and</span>
+            <span class="process-highlight"><span data-i18n-en="butadiene oxidation" data-i18n-fa="اکسیداسیون بوتادین">butadiene oxidation</span></span>.
+            <span data-i18n-en=" This route is efficient where butadiene is economical." data-i18n-fa=" این مسیر در جایی که بوتادین از نظر اقتصادی مقرون‌به‌صرفه است کارآمد است.">This route is efficient where butadiene is economical.</span>
+        `,
+        stages: [
+            {
+                en: "High-purity butadiene feed is prepared with acetic acid and oxygen in a fixed-bed reactor system with palladium-based catalysts for selective acetoxylation reaction.",
+                fa: "خوراک بوتادین با خلوص بالا با اسید استیک و اکسیژن در سیستم راکتور بستر ثابت با کاتالیست‌های بر پایه پالادیوم برای واکنش استوکسیلاسیون انتخابی آماده می‌شود."
+            },
+            {
+                en: "Butadiene is converted to 1,4-diacetoxy-2-butene, which is then hydrogenated to 1,4-diacetoxybutane, and finally hydrolyzed to produce 1,4-butanediol and acetic acid (which is recycled).",
+                fa: "بوتادین به 1,4-دی‌استوکسی-2-بوتین تبدیل می‌شود، که سپس هیدروژناسیون به 1,4-دی‌استوکسی‌بوتان می‌شود و در نهایت هیدرولیز به 1,4-بوتان‌دی‌ال و اسید استیک (که بازیافت می‌شود) تبدیل می‌گردد."
+            },
+            {
+                en: "The process stream undergoes multiple separation steps including decantation, distillation, and extraction to isolate pure 1,4-butanediol and recover acetic acid for recycling.",
+                fa: "جریان فرآیند تحت مراحل جداسازی متعددی شامل دکانتاسیون، تقطیر و استخراج قرار می‌گیرد تا 1,4-بوتان‌دی‌ال خالص جدا شده و اسید استیک برای بازیافت بازیابی شود."
+            },
+            {
+                en: "Final purification involves fractional distillation under vacuum conditions. The product is stored in stainless steel containers with nitrogen protection against oxidation.",
+                fa: "خالص‌سازی نهایی شامل تقطیر جزءبه‌جزء تحت شرایط خلأ است. محصول در ظروف فولاد ضدزنگ با محافظت نیتروژن در برابر اکسیداسیون ذخیره می‌شود."
+            }
+        ]
+    }
+};
+function setProcess(processType){
+    const tpl = processTemplates[processType] || processTemplates.reppe;
+    const infoBox = document.querySelector('.process-info');
+    if (infoBox) infoBox.innerHTML = tpl.infoHTML;
+    const stageDescs = Array.from(document.querySelectorAll('.stage-description'));
+    stageDescs.forEach((node, i)=>{
+        const st = tpl.stages[i];
+        if (!st) return;
+        node.innerHTML = `<span data-i18n-en="${st.en.replace(/"/g,'&quot;')}" data-i18n-fa="${st.fa.replace(/"/g,'&quot;')}">${st.en}</span>`;
+    });
+    // Re-apply translations after DOM updates
+    if (window.ChemI18n && typeof window.ChemI18n.refresh === 'function') {
+        window.ChemI18n.refresh();
+    }
+}
+document.querySelectorAll('.process-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.process-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        setProcess(this.getAttribute('data-process'));
+    });
+});
+// Ensure default process content matches active button
+const activeBtn = document.querySelector('.process-btn.active');
+setProcess(activeBtn ? activeBtn.getAttribute('data-process') : 'reppe');
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && this.value.trim() !== '') {
+                    const searchTerm = this.value.trim().toLowerCase();
+                    if (searchTerm.includes('1,4-butanediol') || searchTerm.includes('110-63-4')) {
+                        alert('Displaying 1,4-Butanediol information...');
+                    } else {
+                        alert(`Searching for "${searchTerm}"... No exact match found. Showing closest results.`);
+                    }
+                }
+            });
+            // Add subtle animations to all cards on page load
+            setTimeout(() => {
+                document.querySelectorAll('.section-card, .market-insights, .key-companies, .key-commodity').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 150 * index);
+                });
+            }, 100);
+        });
+        // Initialize 2D Demand Pie Chart
+        function initDemandPieChart() {
+            const ctx = document.getElementById('demandChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Asia-Pacific', 'North America', 'Europe', 'Middle East & Others'],
+                    datasets: [{
+                        data: [55, 20, 18, 7],
+                        backgroundColor: [
+                            '#2563eb',
+                            '#8b5cf6',
+                            '#10b981',
+                            '#f59e0b'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.parsed}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        // Initialize 2D Applications Pie Chart
+        function initApplicationsPieChart() {
+            const ctx = document.getElementById('applicationsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['PTMEG/Polyurethanes', 'PBT Polyester', 'GBL', 'THF', 'Others'],
+                    datasets: [{
+                        data: [40, 25, 15, 12, 8],
+                        backgroundColor: [
+                            '#2563eb',
+                            '#8b5cf6',
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.parsed}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        function initMolecularVisualization() {
+            // Set up Three.js scene
+            const container = document.getElementById('molecular-canvas');
+            if (!container) return;
+            // Create scene
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--molecule-bg').trim() || '#f8fafc');
+            // Create camera
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 5;
+            // Create renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            // Create molecular structure
+            const moleculeGroup = new THREE.Group();
+            scene.add(moleculeGroup);
+            // Define atom positions for 1,4-butanediol (C4H10O2)
+            // Carbon chain
+            const c1 = new THREE.Vector3(-1.5, 0, 0);   // terminal carbon
+            const c2 = new THREE.Vector3(-0.5, 0, 0);   // middle carbon
+            const c3 = new THREE.Vector3(0.5, 0, 0);    // middle carbon
+            const c4 = new THREE.Vector3(1.5, 0, 0);    // terminal carbon
+            // Oxygen atoms for hydroxyl groups
+            const o1 = new THREE.Vector3(-2.3, 0, 0);   // hydroxyl oxygen at C1
+            const o2 = new THREE.Vector3(2.3, 0, 0);    // hydroxyl oxygen at C4
+            // Hydrogen atoms
+            const h1 = new THREE.Vector3(-2.8, 0, 0);   // hydrogen on O1
+            const h2 = new THREE.Vector3(2.8, 0, 0);    // hydrogen on O2
+            // Hydrogens on carbons (simplified representation)
+            const h3 = new THREE.Vector3(-1.5, 0.8, 0.5);
+            const h4 = new THREE.Vector3(-1.3, -0.8, 0.5);
+            const h5 = new THREE.Vector3(-0.5, 0.8, -0.5);
+            const h6 = new THREE.Vector3(-0.3, -0.8, -0.5);
+            const h7 = new THREE.Vector3(0.3, 0.8, 0.5);
+            const h8 = new THREE.Vector3(0.5, -0.8, 0.5);
+            const h9 = new THREE.Vector3(1.3, 0.8, -0.5);
+            const h10 = new THREE.Vector3(1.5, -0.8, -0.5);
+            // Create atom spheres
+            function createAtom(position, color, size, name) {
+                const geometry = new THREE.SphereGeometry(size, 32, 32);
+                const material = new THREE.MeshPhongMaterial({
+                    color: color,
+                    shininess: 100,
+                    specular: 0x333333
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                sphere.position.copy(position);
+                sphere.userData = { name: name };
+                moleculeGroup.add(sphere);
+                return sphere;
+            }
+            // Create bond cylinders
+            function createBond(atom1, atom2, color, isDoubleBond = false) {
+                const direction = new THREE.Vector3().subVectors(atom2.position, atom1.position);
+                const midpoint = new THREE.Vector3().addVectors(atom1.position, atom2.position).multiplyScalar(0.5);
+                const length = direction.length();
+                const geometry = new THREE.CylinderGeometry(
+                    isDoubleBond ? 0.08 : 0.12,
+                    isDoubleBond ? 0.08 : 0.12,
+                    length, 32
+                );
+                const material = new THREE.MeshPhongMaterial({
+                    color: color,
+                    shininess: 50
+                });
+                const cylinder = new THREE.Mesh(geometry, material);
+                cylinder.position.copy(midpoint);
+                cylinder.lookAt(atom2.position);
+                cylinder.rotateX(Math.PI / 2);
+                moleculeGroup.add(cylinder);
+                return cylinder;
+            }
+            // Create atoms with molecular colors
+            const c1Atom = createAtom(c1, 0x64748b, 0.35, 'C');
+            const c2Atom = createAtom(c2, 0x64748b, 0.35, 'C');
+            const c3Atom = createAtom(c3, 0x64748b, 0.35, 'C');
+            const c4Atom = createAtom(c4, 0x64748b, 0.35, 'C');
+            const o1Atom = createAtom(o1, 0x1e40af, 0.3, 'O'); // Blue for oxygen
+            const o2Atom = createAtom(o2, 0x1e40af, 0.3, 'O');
+            const h1Atom = createAtom(h1, 0xffffff, 0.2, 'H'); // White for hydrogen
+            const h2Atom = createAtom(h2, 0xffffff, 0.2, 'H');
+            // Hydrogens on carbons
+            const h3Atom = createAtom(h3, 0xffffff, 0.2, 'H');
+            const h4Atom = createAtom(h4, 0xffffff, 0.2, 'H');
+            const h5Atom = createAtom(h5, 0xffffff, 0.2, 'H');
+            const h6Atom = createAtom(h6, 0xffffff, 0.2, 'H');
+            const h7Atom = createAtom(h7, 0xffffff, 0.2, 'H');
+            const h8Atom = createAtom(h8, 0xffffff, 0.2, 'H');
+            const h9Atom = createAtom(h9, 0xffffff, 0.2, 'H');
+            const h10Atom = createAtom(h10, 0xffffff, 0.2, 'H');
+            // Create bonds
+            createBond(c1Atom, c2Atom, 0x475569);
+            createBond(c2Atom, c3Atom, 0x475569);
+            createBond(c3Atom, c4Atom, 0x475569);
+            createBond(c1Atom, o1Atom, 0x475569);
+            createBond(c4Atom, o2Atom, 0x475569);
+            createBond(o1Atom, h1Atom, 0x475569);
+            createBond(o2Atom, h2Atom, 0x475569);
+            // Bonds to hydrogens on carbons
+            createBond(c1Atom, h3Atom, 0x475569);
+            createBond(c1Atom, h4Atom, 0x475569);
+            createBond(c2Atom, h5Atom, 0x475569);
+            createBond(c2Atom, h6Atom, 0x475569);
+            createBond(c3Atom, h7Atom, 0x475569);
+            createBond(c3Atom, h8Atom, 0x475569);
+            createBond(c4Atom, h9Atom, 0x475569);
+            createBond(c4Atom, h10Atom, 0x475569);
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                moleculeGroup.rotation.y += 0.005;
+                moleculeGroup.rotation.x += 0.002;
+                renderer.render(scene, camera);
+            }
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+            // React to theme changes
+            window.addEventListener('chemThemeChange', () => {
+                try{
+                    const bg = getComputedStyle(document.documentElement).getPropertyValue('--molecule-bg').trim() || '#f8fafc';
+                    scene.background = new THREE.Color(bg);
+                    renderer.render(scene, camera);
+                }catch(e){}
+            });
+            animate();
+        }
+</script>
+<script>
+(function(){
+    const langBtn = document.getElementById('langToggle');
+    const langLabel = document.getElementById('langLabel');
+    const themeBtn = document.getElementById('themeToggle');
+    function escapeHtml(str){
+        return String(str)
+            .replaceAll('&','&amp;')
+            .replaceAll('<','&lt;')
+            .replaceAll('>','&gt;')
+            .replaceAll('"','&quot;')
+            .replaceAll("'",'&#039;');
+    }
+    function renderI18n(el, lang){
+        const en = el.getAttribute('data-i18n-en') ?? '';
+        const fa = el.getAttribute('data-i18n-fa') ?? '';
+        if (el.tagName === 'TITLE'){
+            el.textContent = (lang === 'fa') ? fa : en;
+            return;
+        }
+        // Pure language: show only the selected language (no mixed text)
+        el.textContent = (lang === 'fa') ? fa : en;
+    }
+    function applyLang(lang){
+        document.documentElement.setAttribute('lang', lang);
+        document.documentElement.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
+        // Show the NEXT language in the pill (what you will switch to)
+        if (langLabel) langLabel.textContent = (lang === 'fa') ? 'EN' : 'FA';
+        document.querySelectorAll('[data-i18n-en][data-i18n-fa]').forEach(el => renderI18n(el, lang));
+    }
+    function getLang(){
+        return document.documentElement.getAttribute('lang') || 'en';
+    }
+    // Theme
+    function applyTheme(theme){
+        document.documentElement.setAttribute('data-theme', theme);
+        const icon = themeBtn?.querySelector('i');
+        if (icon){
+            icon.classList.remove('fa-moon','fa-sun');
+            icon.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
+        }
+        window.dispatchEvent(new CustomEvent('chemThemeChange', { detail: { theme } }));
+    }
+    function getTheme(){
+        return document.documentElement.getAttribute('data-theme') || 'light';
+    }
+    // Expose refresh hooks
+    window.ChemI18n = {
+        applyLang,
+        getLang,
+        refresh: ()=>applyLang(getLang())
+    };
+    // Initial language: saved > browser
+    const savedLang = localStorage.getItem('chem_lang');
+    const autoLang = (navigator.language || '').toLowerCase().startsWith('fa') ? 'fa' : 'en';
+    applyLang(savedLang || autoLang);
+    langBtn?.addEventListener('click', ()=>{
+        const next = getLang() === 'fa' ? 'en' : 'fa';
+        localStorage.setItem('chem_lang', next);
+        applyLang(next);
+    });
+    // Initial theme: saved > system
+    const savedTheme = localStorage.getItem('chem_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+    themeBtn?.addEventListener('click', ()=>{
+        const next = getTheme() === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('chem_theme', next);
+        applyTheme(next);
+    });
+})();
+</script>
+</body>
+
+
+</html>
